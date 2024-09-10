@@ -44,22 +44,22 @@
             this.pictBoxImg1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pictBoxImg1.Location = new System.Drawing.Point(5, 6);
             this.pictBoxImg1.Name = "pictBoxImg1";
-            this.pictBoxImg1.Size = new System.Drawing.Size(600, 500);
+            this.pictBoxImg1.Size = new System.Drawing.Size(792, 634);
             this.pictBoxImg1.TabIndex = 102;
             this.pictBoxImg1.TabStop = false;
             // 
             // pictBoxImg2
             // 
             this.pictBoxImg2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pictBoxImg2.Location = new System.Drawing.Point(611, 6);
+            this.pictBoxImg2.Location = new System.Drawing.Point(803, 6);
             this.pictBoxImg2.Name = "pictBoxImg2";
-            this.pictBoxImg2.Size = new System.Drawing.Size(600, 500);
+            this.pictBoxImg2.Size = new System.Drawing.Size(760, 634);
             this.pictBoxImg2.TabIndex = 105;
             this.pictBoxImg2.TabStop = false;
             // 
             // btnAbrirImagem
             // 
-            this.btnAbrirImagem.Location = new System.Drawing.Point(5, 512);
+            this.btnAbrirImagem.Location = new System.Drawing.Point(5, 654);
             this.btnAbrirImagem.Name = "btnAbrirImagem";
             this.btnAbrirImagem.Size = new System.Drawing.Size(101, 23);
             this.btnAbrirImagem.TabIndex = 106;
@@ -69,7 +69,7 @@
             // 
             // btnLimpar
             // 
-            this.btnLimpar.Location = new System.Drawing.Point(112, 512);
+            this.btnLimpar.Location = new System.Drawing.Point(112, 654);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(101, 23);
             this.btnLimpar.TabIndex = 107;
@@ -79,7 +79,7 @@
             // 
             // ZhangSuenSemDMA
             // 
-            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(220, 511);
+            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(219, 654);
             this.ZhangSuenSemDMA.Name = "ZhangSuenSemDMA";
             this.ZhangSuenSemDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenSemDMA.TabIndex = 108;
@@ -89,7 +89,7 @@
             // 
             // ZhangSuenComDMA
             // 
-            this.ZhangSuenComDMA.Location = new System.Drawing.Point(220, 540);
+            this.ZhangSuenComDMA.Location = new System.Drawing.Point(219, 693);
             this.ZhangSuenComDMA.Name = "ZhangSuenComDMA";
             this.ZhangSuenComDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenComDMA.TabIndex = 109;
@@ -101,7 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 608);
+            this.ClientSize = new System.Drawing.Size(1569, 728);
             this.Controls.Add(this.ZhangSuenComDMA);
             this.Controls.Add(this.ZhangSuenSemDMA);
             this.Controls.Add(this.btnLimpar);

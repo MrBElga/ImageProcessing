@@ -151,5 +151,37 @@ namespace ProcessamentoImagens
             //unlock imagem destino
             imageBitmapDest.UnlockBits(bitmapDataDst);
         }
+
+        public static void Threshold(Bitmap srcBitmap, Bitmap destBitmap, byte threshold)
+        {
+            int width = srcBitmap.Width;
+            int height = srcBitmap.Height;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color pixelColor = srcBitmap.GetPixel(x, y);
+                    int gray = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+                    Color newColor = gray < threshold ? Color.Black : Color.White;
+                    destBitmap.SetPixel(x, y, newColor);
+                }
+            }
+        }
+        //lembrar variavel Point para guardar x maior Y maior ...
+        //sem acesso direto a memoria
+        public static void ZhangSuen(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+            //[z1,z2,z3]
+            //[z4,z5,z6]
+            //[z7,z8,z9]
+
+ 
+
+          
+        }
+
     }
 }

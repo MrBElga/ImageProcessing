@@ -27,7 +27,8 @@ namespace ProcessamentoImagens
             {
                 image = Image.FromFile(openFileDialog.FileName);
                 pictBoxImg1.Image = image;
-                pictBoxImg1.SizeMode = PictureBoxSizeMode.Normal;
+                pictBoxImg1.SizeMode = PictureBoxSizeMode.Zoom ;
+                pictBoxImg2.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
 
@@ -71,7 +72,10 @@ namespace ProcessamentoImagens
 
         private void ZhangSuenSemDMA_Click(object sender, EventArgs e)
         {
-
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.ZhangSuen(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
         }
 
         private void ZhangSuenComDMA_Click(object sender, EventArgs e)
