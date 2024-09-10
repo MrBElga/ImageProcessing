@@ -68,5 +68,15 @@ namespace ProcessamentoImagens
             Filtros.negativoDMA(imageBitmap, imgDest);
             pictBoxImg2.Image = imgDest;
         }
+
+        private void ZhangSuenSemDMA_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ZhangSuenComDMA_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
