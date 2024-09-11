@@ -38,37 +38,7 @@ namespace ProcessamentoImagens
             pictBoxImg2.Image = null;
         }
 
-        private void btnLuminanciaSemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.convert_to_gray(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void btnLuminanciaComDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.convert_to_grayDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void btnNegativoSemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.negativo(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void btnNegativoComDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.negativoDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
+      
 
         private void ZhangSuenSemDMA_Click(object sender, EventArgs e)
         {
@@ -80,7 +50,8 @@ namespace ProcessamentoImagens
 
         private void ZhangSuenComDMA_Click(object sender, EventArgs e)
         {
-
+     
         }
+
     }
 }
