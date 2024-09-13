@@ -85,7 +85,6 @@
             this.ZhangSuenSemDMA.TabIndex = 108;
             this.ZhangSuenSemDMA.Text = "ZhangSuen Sem DMA";
             this.ZhangSuenSemDMA.UseVisualStyleBackColor = true;
-            this.ZhangSuenSemDMA.Click += new System.EventHandler(this.ZhangSuenSemDMA_Click);
             // 
             // ZhangSuenComDMA
             // 
@@ -95,7 +94,6 @@
             this.ZhangSuenComDMA.TabIndex = 109;
             this.ZhangSuenComDMA.Text = "ZhangSuen Com DMA";
             this.ZhangSuenComDMA.UseVisualStyleBackColor = true;
-            this.ZhangSuenComDMA.Click += new System.EventHandler(this.ZhangSuenComDMA_Click);
             // 
             // frmPrincipal
             // 

@@ -84,5 +84,21 @@ namespace ProcessamentoImagens
             Filtros.verticalSemDMA(imageBitmap, imgDest);
             pictBoxImg2.Image = imgDest;
         }
+
+        private void espelhoDMA_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.horizontalSemDMA(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
+        }
+
+        private void espelhoVerticalDMA_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.verticalSemDMA(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
+        }
     }
 }

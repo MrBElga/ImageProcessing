@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace ProcessamentoImagens
 {
@@ -228,6 +229,44 @@ namespace ProcessamentoImagens
                 }
                 heightaux--;
             }
+        }
+
+
+        //espelho com dma
+        public static void espelhoVeticalDMA(Bitmap imagebitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imagebitmapSrc.Width;
+            int height = imagebitmapSrc.Height;
+            int pixelSize = 3;
+
+            // Lock dados bitmap origem
+            BitmapData bitmapDataSrc = imagebitmapSrc.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            // Lock dados bitmap destino
+            BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+
+            int padding = bitmapDataSrc.Stride - (width * pixelSize);
+            unsafe
+            {
+                byte* src1 = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                byte* dst = (byte*)bitmapDataDst.Scan0.ToPointer();
+                int r, g, b;
+
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        r = *(src1++);
+                        g = *(src1++);
+                        b = *(src1++);
+                        *(dst++) = (byte)b;
+                        *(dst++) = (byte)g;
+                        *(dst++) = (byte)r;
+                    }
+                }
+            }
+
         }
 
         public static void ZhangSuen(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
