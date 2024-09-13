@@ -231,8 +231,8 @@ namespace ProcessamentoImagens
             }
         }
 
+            
 
-        //espelho com dma
         public static void espelhoVeticalDMA(Bitmap imagebitmapSrc, Bitmap imageBitmapDest)
         {
             int width = imagebitmapSrc.Width;
@@ -246,28 +246,39 @@ namespace ProcessamentoImagens
             BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
                 ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
 
-            int padding = bitmapDataSrc.Stride - (width * pixelSize);
+            int srcStride = bitmapDataSrc.Stride;
+            int dstStride = bitmapDataDst.Stride;
+
             unsafe
             {
-                byte* src1 = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
                 byte* dst = (byte*)bitmapDataDst.Scan0.ToPointer();
-                int r, g, b;
 
                 for (int y = 0; y < height; y++)
                 {
+                    byte* srcLine = src + (y * srcStride);
+                    byte* dstLine = dst + (y * dstStride);
+
                     for (int x = 0; x < width; x++)
                     {
-                        r = *(src1++);
-                        g = *(src1++);
-                        b = *(src1++);
-                        *(dst++) = (byte)b;
-                        *(dst++) = (byte)g;
-                        *(dst++) = (byte)r;
+                        // Calcula a posição do pixel no lado direito da linha
+                        int srcIndex = (width - x - 1) * pixelSize;
+
+                        // Copia os valores dos pixels
+                        dstLine[x * pixelSize] = srcLine[srcIndex];
+                        dstLine[x * pixelSize + 1] = srcLine[srcIndex + 1];
+                        dstLine[x * pixelSize + 2] = srcLine[srcIndex + 2];
                     }
                 }
             }
 
+            // Unlock imagem origem
+            imagebitmapSrc.UnlockBits(bitmapDataSrc);
+            // Unlock imagem destino
+            imageBitmapDest.UnlockBits(bitmapDataDst);
         }
+
+
 
         public static void ZhangSuen(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
         {

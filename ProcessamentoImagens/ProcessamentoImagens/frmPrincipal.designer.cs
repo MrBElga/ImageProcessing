@@ -35,6 +35,12 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.ZhangSuenSemDMA = new System.Windows.Forms.Button();
             this.ZhangSuenComDMA = new System.Windows.Forms.Button();
+            this.espelhoVsemDMA = new System.Windows.Forms.Button();
+            this.espelhoHsemDMA = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.espelhoVDMA = new System.Windows.Forms.Button();
+            this.espelhoHDMA = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg2)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +85,7 @@
             // 
             // ZhangSuenSemDMA
             // 
-            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(219, 654);
+            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(1316, 654);
             this.ZhangSuenSemDMA.Name = "ZhangSuenSemDMA";
             this.ZhangSuenSemDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenSemDMA.TabIndex = 108;
@@ -88,18 +94,82 @@
             // 
             // ZhangSuenComDMA
             // 
-            this.ZhangSuenComDMA.Location = new System.Drawing.Point(219, 693);
+            this.ZhangSuenComDMA.Location = new System.Drawing.Point(1316, 693);
             this.ZhangSuenComDMA.Name = "ZhangSuenComDMA";
             this.ZhangSuenComDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenComDMA.TabIndex = 109;
             this.ZhangSuenComDMA.Text = "ZhangSuen Com DMA";
             this.ZhangSuenComDMA.UseVisualStyleBackColor = true;
             // 
+            // espelhoVsemDMA
+            // 
+            this.espelhoVsemDMA.Location = new System.Drawing.Point(232, 654);
+            this.espelhoVsemDMA.Name = "espelhoVsemDMA";
+            this.espelhoVsemDMA.Size = new System.Drawing.Size(167, 23);
+            this.espelhoVsemDMA.TabIndex = 112;
+            this.espelhoVsemDMA.Text = "Espelho Vertical Sem DMA";
+            this.espelhoVsemDMA.UseVisualStyleBackColor = true;
+            this.espelhoVsemDMA.Click += new System.EventHandler(this.espelhoVsemDMA_Click);
+            // 
+            // espelhoHsemDMA
+            // 
+            this.espelhoHsemDMA.Location = new System.Drawing.Point(405, 654);
+            this.espelhoHsemDMA.Name = "espelhoHsemDMA";
+            this.espelhoHsemDMA.Size = new System.Drawing.Size(167, 23);
+            this.espelhoHsemDMA.TabIndex = 113;
+            this.espelhoHsemDMA.Text = "Espelho horizontal sem DMA";
+            this.espelhoHsemDMA.UseVisualStyleBackColor = true;
+            this.espelhoHsemDMA.Click += new System.EventHandler(this.espelhoHsemDMA_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(578, 654);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(167, 23);
+            this.button5.TabIndex = 114;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // espelhoVDMA
+            // 
+            this.espelhoVDMA.Location = new System.Drawing.Point(232, 693);
+            this.espelhoVDMA.Name = "espelhoVDMA";
+            this.espelhoVDMA.Size = new System.Drawing.Size(167, 23);
+            this.espelhoVDMA.TabIndex = 115;
+            this.espelhoVDMA.Text = "espelho vertical com DMA";
+            this.espelhoVDMA.UseVisualStyleBackColor = true;
+            this.espelhoVDMA.Click += new System.EventHandler(this.espelhoVDMA_Click);
+            // 
+            // espelhoHDMA
+            // 
+            this.espelhoHDMA.Location = new System.Drawing.Point(405, 693);
+            this.espelhoHDMA.Name = "espelhoHDMA";
+            this.espelhoHDMA.Size = new System.Drawing.Size(167, 23);
+            this.espelhoHDMA.TabIndex = 116;
+            this.espelhoHDMA.Text = "Espelho Horizontal com DMA";
+            this.espelhoHDMA.UseVisualStyleBackColor = true;
+            this.espelhoHDMA.Click += new System.EventHandler(this.espelhoHDMA_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(578, 693);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(167, 23);
+            this.button8.TabIndex = 117;
+            this.button8.Text = "button8";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1569, 728);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.espelhoHDMA);
+            this.Controls.Add(this.espelhoVDMA);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.espelhoHsemDMA);
+            this.Controls.Add(this.espelhoVsemDMA);
             this.Controls.Add(this.ZhangSuenComDMA);
             this.Controls.Add(this.ZhangSuenSemDMA);
             this.Controls.Add(this.btnLimpar);
@@ -124,6 +194,12 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button ZhangSuenSemDMA;
         private System.Windows.Forms.Button ZhangSuenComDMA;
+        private System.Windows.Forms.Button espelhoVsemDMA;
+        private System.Windows.Forms.Button espelhoHsemDMA;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button espelhoVDMA;
+        private System.Windows.Forms.Button espelhoHDMA;
+        private System.Windows.Forms.Button button8;
     }
 }
 

@@ -69,29 +69,7 @@ namespace ProcessamentoImagens
             pictBoxImg2.Image = imgDest;
         }
 
-        private void espelhoSemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.horizontalSemDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void espelhoVerticalSemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.verticalSemDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void espelhoDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.horizontalSemDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
+  
 
         private void espelhoVerticalDMA_Click(object sender, EventArgs e)
         {
@@ -99,6 +77,35 @@ namespace ProcessamentoImagens
             imageBitmap = (Bitmap)image;
             Filtros.verticalSemDMA(imageBitmap, imgDest);
             pictBoxImg2.Image = imgDest;
+        }
+
+        private void espelhoVsemDMA_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.verticalSemDMA(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
+        }
+
+        private void espelhoVDMA_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.espelhoVeticalDMA(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
+        }
+
+        private void espelhoHsemDMA_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.horizontalSemDMA(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
+        }
+
+        private void espelhoHDMA_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
