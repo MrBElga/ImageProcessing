@@ -26,4 +26,5 @@ C:\Users\User\OneDrive\Desktop\TP\ImageProcessing\ProcessamentoImagens\Processam
 C:\Users\User\OneDrive\Desktop\TP\ImageProcessing\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.CoreCompileInputs.cache
 C:\Users\User\OneDrive\Desktop\TP\ImageProcessing\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.exe
 C:\Users\User\OneDrive\Desktop\TP\ImageProcessing\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.pdb
-C:\Users\Aluno\Desktop\ImageProcessing\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csprojAssemblyReference.cache
+C:\Users\Aluno\Desktop\ImageProcessing\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.AssemblyReference.cache
+C:\Users\Aluno\Desktop\ImageProcessing\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.SuggestedBindingRedirects.cache

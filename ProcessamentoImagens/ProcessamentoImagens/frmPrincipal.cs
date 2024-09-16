@@ -107,5 +107,13 @@ namespace ProcessamentoImagens
         {
 
         }
+
+        private void ZhangSuenComDMA_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.ZhangSuen(imageBitmap, imgDest);
+            pictBoxImg2.Image = imgDest;
+        }
     }
 }

@@ -100,6 +100,7 @@
             this.ZhangSuenComDMA.TabIndex = 109;
             this.ZhangSuenComDMA.Text = "ZhangSuen Com DMA";
             this.ZhangSuenComDMA.UseVisualStyleBackColor = true;
+            this.ZhangSuenComDMA.Click += new System.EventHandler(this.ZhangSuenComDMA_Click);
             // 
             // espelhoVsemDMA
             // 

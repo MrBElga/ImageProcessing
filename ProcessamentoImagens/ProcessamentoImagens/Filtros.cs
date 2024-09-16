@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -8,7 +9,7 @@ namespace ProcessamentoImagens
 {
     class Filtros
     {
-               //sem acesso direto a memoria
+        //sem acesso direto a memoria
         public static void convert_to_gray(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
         {
             int width = imageBitmapSrc.Width;
@@ -152,7 +153,7 @@ namespace ProcessamentoImagens
         }
 
 
-       
+
 
         //espelho vertical
         public static void verticalSemDMA(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
@@ -231,7 +232,7 @@ namespace ProcessamentoImagens
             }
         }
 
-            
+
 
         public static void espelhoVeticalDMA(Bitmap imagebitmapSrc, Bitmap imageBitmapDest)
         {
@@ -277,112 +278,156 @@ namespace ProcessamentoImagens
             // Unlock imagem destino
             imageBitmapDest.UnlockBits(bitmapDataDst);
         }
-
-
-
         public static void ZhangSuen(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
         {
             int width = imageBitmapSrc.Width;
             int height = imageBitmapSrc.Height;
+            int pixelSize = 3;
 
-            // Lock dados bitmap origem
+            // Lock bits for the source and destination bitmaps
             BitmapData bitmapDataSrc = imageBitmapSrc.LockBits(new Rectangle(0, 0, width, height),
                 ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-            // Lock dados bitmap destino
-            BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
+            BitmapData bitmapDataDest = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
                 ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
 
-            int strideSrc = bitmapDataSrc.Stride;
-            int strideDst = bitmapDataDst.Stride;
-            IntPtr scan0Src = bitmapDataSrc.Scan0;
-            IntPtr scan0Dst = bitmapDataDst.Scan0;
+            int stride = bitmapDataSrc.Stride;
+            int srcStride = bitmapDataSrc.Stride;
+            int dstStride = bitmapDataDst.Stride;
 
-            byte[] pixelsSrc = new byte[height * strideSrc];
-            byte[] pixelsDst = new byte[height * strideDst];
-            Marshal.Copy(scan0Src, pixelsSrc, 0, pixelsSrc.Length);
-            Marshal.Copy(scan0Dst, pixelsDst, 0, pixelsDst.Length);
+
 
             bool afinando = true;
+
             while (afinando)
             {
                 afinando = false;
-                for (int i = 1; i < width - 1; i++)
+                List<PixelPoint> remPoints = new List<PixelPoint>();
+
+                // First pass
+                for (int j = 1; j < height - 1; j++)
                 {
-                    for (int j = 1; j < height - 1; j++)
+                    for (int i = 1; i < width - 1; i++)
                     {
-                        int vizinhos = 0, conectividade = 0;
-
-                        // P1 a P9
-                        int p1 = GetPixel(pixelsSrc, strideSrc, i - 1, j - 1);
-                        int p2 = GetPixel(pixelsSrc, strideSrc, i, j - 1);
-                        int p3 = GetPixel(pixelsSrc, strideSrc, i + 1, j - 1);
-                        int p4 = GetPixel(pixelsSrc, strideSrc, i + 1, j);
-                        int p5 = GetPixel(pixelsSrc, strideSrc, i + 1, j + 1);
-                        int p6 = GetPixel(pixelsSrc, strideSrc, i, j + 1);
-                        int p7 = GetPixel(pixelsSrc, strideSrc, i - 1, j + 1);
-                        int p8 = GetPixel(pixelsSrc, strideSrc, i - 1, j);
-                        int p9 = GetPixel(pixelsSrc, strideSrc, i, j);
-
-                        if (p9 == 0)
-                        {
-                            if (p2 >= 180) vizinhos++;
-                            if (p3 >= 180) vizinhos++;
-                            if (p4 >= 180) vizinhos++;
-                            if (p5 >= 180) vizinhos++;
-                            if (p6 >= 180) vizinhos++;
-                            if (p7 >= 180) vizinhos++;
-                            if (p8 >= 180) vizinhos++;
-
-                            if (vizinhos >= 2 && vizinhos <= 6)
-                            {
-                                if ((p2 >= 180 && p3 == 0) || (p3 >= 180 && p4 == 0) ||
-                                    (p4 >= 180 && p5 == 0) || (p5 >= 180 && p6 == 0) ||
-                                    (p6 >= 180 && p7 == 0) || (p7 >= 180 && p8 == 0) ||
-                                    (p8 >= 180 && p9 == 0) || (p9 >= 180 && p2 == 0))
-                                {
-                                    conectividade++;
-                                }
-
-                                if (conectividade == 1)
-                                {
-                                    SetPixel(pixelsDst, strideDst, i, j, 0);
-                                    afinando = true;
-                                }
-                            }
-                        }
+                     
+                        
                     }
+                }
+
+                foreach (var pixel in remPoints)
+                {
+                    setPixel(pixelsDest, stride, pixel.i, pixel.j, Color.White);
+                }
+
+                remPoints.Clear();
+
+                // Second pass
+                for (int j = 1; j < height - 1; j++)
+                {
+                    for (int i = 1; i < width - 1; i++)
+                    {
+                      
+                    }
+                }
+
+                foreach (var pixel in remPoints)
+                {
+                    setPixel(pixelsDest, stride, pixel.i, pixel.j, Color.White);
+                }
+
+                if (remPoints.Count > 0)
+                {
+                    afinando = true;
+                }
+
+              
+            }
+
+            // Unlock the bits for both bitmaps
+            imageBitmapSrc.UnlockBits(bitmapDataSrc);
+            imageBitmapDest.UnlockBits(bitmapDataDest);
+        }
+
+        private static bool isPreto(byte[] pixels, int stride, int x, int y)
+        {
+            int index = y * stride + x * 3;
+            return pixels[index] == 0 && pixels[index + 1] == 0 && pixels[index + 2] == 0;
+        }
+
+        private static bool isBranco(byte[] pixels, int stride, int x, int y)
+        {
+            int index = y * stride + x * 3;
+            return pixels[index] == 255 && pixels[index + 1] == 255 && pixels[index + 2] == 255;
+        }
+
+        private static int calcConectividade(byte[] pixels, int stride, int x, int y)
+        {
+            int conectividade = 0;
+            bool[] vetorPixel = new bool[8];
+            carregaIntervaloP2P9(pixels, stride, vetorPixel, x, y);
+
+            for (int k = 0; k < vetorPixel.Length - 1; k++)
+            {
+                if (!vetorPixel[k] && vetorPixel[k + 1])
+                {
+                    conectividade++;
                 }
             }
 
-            // Copia os dados para o bitmap de destino
-            Marshal.Copy(pixelsDst, 0, scan0Dst, pixelsDst.Length);
-
-            // Unlock imagem origem e destino
-            imageBitmapSrc.UnlockBits(bitmapDataSrc);
-            imageBitmapDest.UnlockBits(bitmapDataDst);
-        }
-
-        private static void SetPixel(byte[] pixels, int stride, int x, int y, int value)
-        {
-            int index = (y * stride) + (x * 3);
-            pixels[index] = (byte)value; // B
-            pixels[index + 1] = (byte)value; // G
-            pixels[index + 2] = (byte)value; // R
-        }
-
-        private static int GetPixel(byte[] pixels, int stride, int x, int y)
-        {
-            // Verifica se (x, y) está fora dos limites da imagem
-            if (x < 0 || x >= (stride / 3) || y < 0 || y >= (pixels.Length / stride))
+            if (!vetorPixel[7] && vetorPixel[0])
             {
-                return 255; // Branco (ou outro valor que indique fora dos limites)
+                conectividade++;
             }
-            else
-            {
-                int index = (y * stride) + (x * 3);
-                return pixels[index]; // Retorna o valor do canal Blue
-            }
-         
+
+            return conectividade;
         }
+
+        private static int calcVizinho(byte[] pixels, int stride, int x, int y)
+        {
+            int vizinhos = 0;
+            bool[] vetorPixel = new bool[8];
+            carregaIntervaloP2P9(pixels, stride, vetorPixel, x, y);
+
+            for (int k = 0; k < vetorPixel.Length; k++)
+            {
+                if (vetorPixel[k])
+                {
+                    vizinhos++;
+                }
+            }
+
+            return vizinhos;
+        }
+
+        private static void carregaIntervaloP2P9(byte[] pixels, int stride, bool[] vetorPixelPoint, int x, int y)
+        {
+            vetorPixelPoint[0] = isPreto(pixels, stride, x, y - 1); // P2
+            vetorPixelPoint[1] = isPreto(pixels, stride, x + 1, y - 1); // P3
+            vetorPixelPoint[2] = isPreto(pixels, stride, x + 1, y); // P4
+            vetorPixelPoint[3] = isPreto(pixels, stride, x + 1, y + 1); // P5
+            vetorPixelPoint[4] = isPreto(pixels, stride, x, y + 1); // P6
+            vetorPixelPoint[5] = isPreto(pixels, stride, x - 1, y + 1); // P7
+            vetorPixelPoint[6] = isPreto(pixels, stride, x - 1, y); // P8
+            vetorPixelPoint[7] = isPreto(pixels, stride, x - 1, y - 1); // P9
+        }
+
+        private static void setPixel(byte[] pixels, int stride, int x, int y, Color color)
+        {
+            int index = y * stride + x * 3;
+            pixels[index] = color.B;
+            pixels[index + 1] = color.G;
+            pixels[index + 2] = color.R;
+        }
+
+        private static bool temBranco(byte[] pixels, int stride, int x, int y, int offsetX, int offsetY)
+        {
+            int newX = x + offsetX;
+            int newY = y + offsetY;
+            return isBranco(pixels, stride, newX, newY);
+        }
+    }
+
+    struct PixelPoint
+    {
+        public int i, j;
     }
 }
