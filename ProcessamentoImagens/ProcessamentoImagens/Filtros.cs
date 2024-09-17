@@ -362,7 +362,7 @@ namespace ProcessamentoImagens
                     afinando = false;
 
                     // Lista para armazenar os pontos a serem removidos
-                    List<PixelPoint> remPoints = new List<PixelPoint>();
+                    List<Ponto> remPoints = new List<Ponto>();
 
                     // Passo 1
                     for (int y = 1; y < height - 1; y++)
@@ -377,10 +377,10 @@ namespace ProcessamentoImagens
                                     int vizinhos = totVizinhos(dst, x, y, stride);
                                     if (vizinhos >= 2 && vizinhos <= 6)
                                     {
-                                        if (branco(dst, x, y - 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x - 1, y, stride) &&
-                                            branco(dst, x, y + 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x, y - 1, stride))
+                                        if (branco(dst, x, y - 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x, y + 1, stride))
                                         {
-                                            remPoints.Add(new PixelPoint { x = x, y = y });
+                                            if (branco(dst, x + 1, y, stride) || branco(dst, x, y + 1, stride) || branco(dst, x - 1, y, stride))
+                                                remPoints.Add(new Ponto { x = x, y = y });
                                         }
                                     }
                                 }
@@ -414,10 +414,10 @@ namespace ProcessamentoImagens
                                     int vizinhos = totVizinhos(dst, x, y, stride);
                                     if (vizinhos >= 2 && vizinhos <= 6)
                                     {
-                                        if (branco(dst, x, y - 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x, y + 1, stride) &&
-                                            branco(dst, x - 1, y, stride) || branco(dst, x, y + 1, stride) || branco(dst, x + 1, y, stride))
+                                        if (branco(dst, x, y - 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x - 1, y, stride))
                                         {
-                                            remPoints.Add(new PixelPoint { x = x, y = y });
+                                            if (branco(dst, x - 1, y, stride) || branco(dst, x, y + 1, stride) || branco(dst, x, y - 1, stride))
+                                                remPoints.Add(new Ponto { x = x, y = y });
                                         }
                                     }
                                 }
@@ -467,7 +467,7 @@ namespace ProcessamentoImagens
             int tamanho = 8;
 
             bool[] vetorPixel = new bool[tamanho];
-            carregaIntervaloP2P9(src, vetorPixel, i, j, stride);
+            carregaMatriz(src, vetorPixel, i, j, stride);
 
             for (int k = 0; k < tamanho - 1; k++)
             {
@@ -488,11 +488,11 @@ namespace ProcessamentoImagens
             int tamanho = 8;
 
             bool[] vetorPixel = new bool[tamanho];
-            carregaIntervaloP2P9(src, vetorPixel, x, y, stride);
+            carregaMatriz(src, vetorPixel, x, y, stride);
 
             for (int k = 0; k < tamanho; k++)
             {
-                if (!vetorPixel[k])
+                if (vetorPixel[k])
                 {
                     vizinhos++;
                 }
@@ -503,25 +503,23 @@ namespace ProcessamentoImagens
 
 
 
-        private unsafe static void carregaIntervaloP2P9(byte* src, bool[] vetorPixelPoint, int x, int y, int stride)
+        private unsafe static void carregaMatriz(byte* src, bool[] vetorDePonto, int x, int y, int stride)
         {
-            vetorPixelPoint[0] = branco(src, x, y-1, stride);   // P2
-            vetorPixelPoint[1] = branco(src, x + 1, y - 1, stride); // P3
-            vetorPixelPoint[2] = branco(src, x + 1, y , stride);     // P4
-            vetorPixelPoint[3] = branco(src, x + 1, y + 1, stride); // P5
-            vetorPixelPoint[4] = branco(src, x, y + 1, stride);     // P6
-            vetorPixelPoint[5] = branco(src, x - 1, y + 1, stride); // P7
-            vetorPixelPoint[6] = branco(src, x-1, y, stride);     // P8
-            vetorPixelPoint[7] = branco(src, x - 1, y - 1, stride); // P9
+            vetorDePonto[0] = preto(src, x, y-1, stride);
+            vetorDePonto[1] = preto(src, x + 1, y - 1, stride);
+            vetorDePonto[2] = preto(src, x + 1, y , stride);
+            vetorDePonto[3] = preto(src, x + 1, y + 1, stride);
+            vetorDePonto[4] = preto(src, x, y + 1, stride);
+            vetorDePonto[5] = preto(src, x - 1, y + 1, stride);
+            vetorDePonto[6] = preto(src, x-1, y, stride);
+            vetorDePonto[7] = preto(src, x - 1, y - 1, stride); 
         }
 
 
   
     }
 
- 
-
-    struct PixelPoint
+    struct Ponto
     {
         public int x, y;
     }

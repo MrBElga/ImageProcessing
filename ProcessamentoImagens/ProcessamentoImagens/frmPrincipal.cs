@@ -27,9 +27,10 @@ namespace ProcessamentoImagens
             {
                 image = Image.FromFile(openFileDialog.FileName);
                 pictBoxImg1.Image = image;
-                pictBoxImg1.SizeMode = PictureBoxSizeMode.Normal;
+                pictBoxImg1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictBoxImg2.SizeMode = PictureBoxSizeMode.Zoom;
             }
-        }
+        }   
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {

@@ -7,10 +7,6 @@
       "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,6 +17,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +34,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\Program.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\Program.cs",
@@ -48,7 +48,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "frmPrincipal.cs [Design]",
               "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\frmPrincipal.cs",
@@ -67,27 +67,27 @@
               "RelativeDocumentMoniker": "ProcessamentoImagens\\Filtros.cs",
               "ToolTip": "C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\Filtros.cs",
               "RelativeToolTip": "ProcessamentoImagens\\Filtros.cs",
-              "ViewState": "AgIAAJ4BAAAAAAAAAAAwwOUBAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAALkBAAAAAAAAAAAYwPkBAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T17:50:46.75Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "frmPrincipal.cs",
               "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\frmPrincipal.cs",
               "ToolTip": "C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.cs",
               "RelativeToolTip": "ProcessamentoImagens\\frmPrincipal.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAlwHQAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAUwCAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T17:50:46.659Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "frmPrincipal.designer.cs",
               "DocumentMoniker": "C:\\Users\\User\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.designer.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\frmPrincipal.designer.cs",
