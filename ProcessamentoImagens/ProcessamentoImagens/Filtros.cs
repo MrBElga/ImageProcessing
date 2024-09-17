@@ -284,9 +284,8 @@ namespace ProcessamentoImagens
         {
             int width = sourceBitmap.Width;
             int height = sourceBitmap.Height;
-            int pixelSize = 3;  // 3 bytes per pixel for 24bpp RGB
+            int pixelSize = 3;  
 
-            // Lock bits for the source and destination bitmaps
             BitmapData bitmapDataSrc = sourceBitmap.LockBits(new Rectangle(0, 0, width, height),
                 ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
             BitmapData bitmapDataDest = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
@@ -299,7 +298,7 @@ namespace ProcessamentoImagens
             {
                 byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
                 byte* dst = (byte*)bitmapDataDest.Scan0.ToPointer();
-                byte threshold = 240;
+                byte threshold = 220;
 
                 for (int y = 0; y < height; y++)
                 {
@@ -312,7 +311,7 @@ namespace ProcessamentoImagens
                         byte g = src[srcIndex + 1];
                         byte r = src[srcIndex + 2];
 
-                        byte gray = (byte)((r + g + b) / pixelSize);
+                        int gray =((r + g + b) / pixelSize);
 
                
                         if (gray >= threshold)
@@ -351,6 +350,7 @@ namespace ProcessamentoImagens
                 ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
             int stride = bitmapDataSrc.Stride;
+            int padding = bitmapDataSrc.Stride - (width * pixelSize);
             unsafe
             {
                 byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
@@ -377,7 +377,8 @@ namespace ProcessamentoImagens
                                     int vizinhos = totVizinhos(src, x, y, stride);
                                     if (vizinhos >= 2 && vizinhos <= 6)
                                     {
-                                        if (temBranco(src, x, y, stride))
+                                        if (branco(src, x, y - 1, stride) || branco(src, x + 1, y, stride) || branco(src, x - 1, y, stride) &&
+                                            branco(src, x - 1, y, stride) || branco(src, x, y + 1, stride) || branco(src, x, y - 1, stride))
                                         {
                                             remPoints.Add(new PixelPoint { x = x, y = y });
                                         }
@@ -402,12 +403,10 @@ namespace ProcessamentoImagens
                     }
 
                     // Passo 2
-                    remPoints.Clear();
-
                     for (int y = 1; y < height - 1; y++)
                     {
                         for (int x = 1; x < width - 1; x++)
-                        {
+                        {   
                             if (preto(src, x, y, stride))
                             {
                                 int conect = calcConectividade(src, x, y, stride);
@@ -416,13 +415,15 @@ namespace ProcessamentoImagens
                                     int vizinhos = totVizinhos(src, x, y, stride);
                                     if (vizinhos >= 2 && vizinhos <= 6)
                                     {
-                                        if (temBranco(src, x, y, stride))
+                                       
+                                        if (branco(src, x, y-1, stride) || branco(src, x+1, y, stride) || branco(src, x, y+1, stride) &&
+                                            branco(src, x-1, y, stride) || branco(src, x, y+1, stride) || branco(src, x+1, y, stride))
                                         {
                                             remPoints.Add(new PixelPoint { x = x, y = y });
                                         }
                                     }
                                 }
-                            }
+                            }   
                         }
                     }
 
@@ -439,7 +440,7 @@ namespace ProcessamentoImagens
                         afinando = true; 
                     }
 
-                    src = dst;
+                    src += padding;
                 }
 
            
@@ -453,44 +454,14 @@ namespace ProcessamentoImagens
             // int index = (y * stride) + (x * 3);
             int index = (y * stride) + (x * 3);
             byte b = src[index];
-            byte g = src[index + 1];
-            byte r = src[index + 2];
-
-
-            byte gray = (byte)((r + g + b) / 3);
-
-
-            if (gray >= 240)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-   
+            return b == 0;
         }
 
         private unsafe static bool branco(byte* src, int x, int y, int stride)
         {
-            // int index = (y * stride) + (x * 3);
             int index = (y * stride) + (x * 3);
             byte b = src[index];
-            byte g = src[index + 1];
-            byte r = src[index + 2];
-
-
-            byte gray = (byte)((r + g + b) / 3);
-
-
-            if (gray >= 240)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return b == 255;
         }
 
     
@@ -510,26 +481,23 @@ namespace ProcessamentoImagens
                     conectividade++;
                 }
             }
-
-            if (vetorPixel[tamanho - 1] && !vetorPixel[0])
-            {
+            if (vetorPixel[7] && !vetorPixel[0])
                 conectividade++;
-            }
 
             return conectividade;
         }
 
-        private unsafe static int totVizinhos(byte* src, int i, int j, int stride)
+        private unsafe static int totVizinhos(byte* src, int x, int y, int stride)
         {
             int vizinhos = 0;
             int tamanho = 8;
 
             bool[] vetorPixel = new bool[tamanho];
-            carregaIntervaloP2P9(src, vetorPixel, i, j, stride);
+            carregaIntervaloP2P9(src, vetorPixel, x, y, stride);
 
             for (int k = 0; k < tamanho; k++)
             {
-                if (!(i == k && j == k) &&!vetorPixel[k]) // Conta os pixels pretos
+                if (!vetorPixel[k])
                 {
                     vizinhos++;
                 }
@@ -540,32 +508,23 @@ namespace ProcessamentoImagens
 
 
 
-        private unsafe static void carregaIntervaloP2P9(byte* src, bool[] vetorPixelPoint, int i, int j, int stride)
+        private unsafe static void carregaIntervaloP2P9(byte* src, bool[] vetorPixelPoint, int x, int y, int stride)
         {
-            vetorPixelPoint[0] = branco(src, i, j - 1, stride);   // P2
-            vetorPixelPoint[1] = branco(src, i + 1, j - 1, stride); // P3
-            vetorPixelPoint[2] = branco(src, i + 1, j, stride);     // P4
-            vetorPixelPoint[3] = branco(src, i + 1, j + 1, stride); // P5
-            vetorPixelPoint[4] = branco(src, i, j + 1, stride);     // P6
-            vetorPixelPoint[5] = branco(src, i - 1, j + 1, stride); // P7
-            vetorPixelPoint[6] = branco(src, i - 1, j, stride);     // P8
-            vetorPixelPoint[7] = branco(src, i - 1, j - 1, stride); // P9
+            vetorPixelPoint[0] = branco(src, x, y-1, stride);   // P2
+            vetorPixelPoint[1] = branco(src, x + 1, y - 1, stride); // P3
+            vetorPixelPoint[2] = branco(src, x + 1, y , stride);     // P4
+            vetorPixelPoint[3] = branco(src, x + 1, y + 1, stride); // P5
+            vetorPixelPoint[4] = branco(src, x, y + 1, stride);     // P6
+            vetorPixelPoint[5] = branco(src, x - 1, y + 1, stride); // P7
+            vetorPixelPoint[6] = branco(src, x-1, y, stride);     // P8
+            vetorPixelPoint[7] = branco(src, x - 1, y - 1, stride); // P9
         }
 
 
-        private unsafe static bool temBranco(byte* src, int x, int y, int stride)
-        {
-                                           
-            if (branco(src,  x,  y-1,  stride) || branco(src, x+1, y, stride) || branco(src, x-1, y, stride) && branco(src, x + 1, y, stride) || branco(src, x , y+1, stride) || branco(src, x, y-1, stride))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+  
     }
+
+ 
 
     struct PixelPoint
     {
