@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace ProcessamentoImagens
 {
@@ -278,6 +279,65 @@ namespace ProcessamentoImagens
             // Unlock imagem destino
             imageBitmapDest.UnlockBits(bitmapDataDst);
         }
+
+        public static void pretoeBranco(Bitmap sourceBitmap, Bitmap imageBitmapDest)
+        {
+            int width = sourceBitmap.Width;
+            int height = sourceBitmap.Height;
+            int pixelSize = 3;  // 3 bytes per pixel for 24bpp RGB
+
+            // Lock bits for the source and destination bitmaps
+            BitmapData bitmapDataSrc = sourceBitmap.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            BitmapData bitmapDataDest = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+
+            int srcStride = bitmapDataSrc.Stride;
+            int dstStride = bitmapDataDest.Stride;
+
+            unsafe
+            {
+                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                byte* dst = (byte*)bitmapDataDest.Scan0.ToPointer();
+                byte threshold = 240;
+
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int srcIndex = (y * srcStride) + (x * pixelSize);
+                        int dstIndex = (y * dstStride) + (x * pixelSize);
+
+                        byte b = src[srcIndex];
+                        byte g = src[srcIndex + 1];
+                        byte r = src[srcIndex + 2];
+
+                        byte gray = (byte)((r + g + b) / pixelSize);
+
+               
+                        if (gray >= threshold)
+                        {
+                            dst[dstIndex] = 255;         
+                            dst[dstIndex + 1] = 255;    
+                            dst[dstIndex + 2] = 255;     
+                        }
+                        else
+                        {
+                            dst[dstIndex] = 0;           
+                            dst[dstIndex + 1] = 0;       
+                            dst[dstIndex + 2] = 0;       
+                        }
+                    }
+                }
+            }
+
+            // Unlock the bits for both bitmaps
+            sourceBitmap.UnlockBits(bitmapDataSrc);
+            imageBitmapDest.UnlockBits(bitmapDataDest);
+        }
+
+
+
         public static void ZhangSuen(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
         {
             int width = imageBitmapSrc.Width;
@@ -288,92 +348,170 @@ namespace ProcessamentoImagens
             BitmapData bitmapDataSrc = imageBitmapSrc.LockBits(new Rectangle(0, 0, width, height),
                 ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
             BitmapData bitmapDataDest = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
             int stride = bitmapDataSrc.Stride;
-            int srcStride = bitmapDataSrc.Stride;
-            int dstStride = bitmapDataDst.Stride;
-
-
-
-            bool afinando = true;
-
-            while (afinando)
+            unsafe
             {
-                afinando = false;
-                List<PixelPoint> remPoints = new List<PixelPoint>();
+                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                byte* dst = (byte*)bitmapDataDest.Scan0.ToPointer();
 
-                // First pass
-                for (int j = 1; j < height - 1; j++)
+                bool afinando = true;
+                while (afinando)
                 {
-                    for (int i = 1; i < width - 1; i++)
+                    afinando = false;
+
+                    // Lista para armazenar os pontos a serem removidos
+                    List<PixelPoint> remPoints = new List<PixelPoint>();
+
+                    // Passo 1
+                    for (int y = 1; y < height - 1; y++)
                     {
+                        for (int x = 1; x < width - 1; x++)
+                        {
+                            if (preto(src, x, y, stride))
+                            {
+                                int conect = calcConectividade(src, x, y, stride);
+                                if (conect == 1)
+                                {
+                                    int vizinhos = totVizinhos(src, x, y, stride);
+                                    if (vizinhos >= 2 && vizinhos <= 6)
+                                    {
+                                        if (temBranco(src, x, y, stride))
+                                        {
+                                            remPoints.Add(new PixelPoint { x = x, y = y });
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (remPoints.Count > 0)
+                    {
+                        foreach (var pixel in remPoints)
+                        {
+                            int index = (pixel.y * stride) + (pixel.x * pixelSize);
+                            dst[index] = 255;       
+                            dst[index + 1] = 255;   
+                            dst[index + 2] = 255;   
+                        }
+                        remPoints.Clear();
                      
-                        
+
                     }
-                }
 
-                foreach (var pixel in remPoints)
-                {
-                    setPixel(pixelsDest, stride, pixel.i, pixel.j, Color.White);
-                }
+                    // Passo 2
+                    remPoints.Clear();
 
-                remPoints.Clear();
-
-                // Second pass
-                for (int j = 1; j < height - 1; j++)
-                {
-                    for (int i = 1; i < width - 1; i++)
+                    for (int y = 1; y < height - 1; y++)
                     {
-                      
+                        for (int x = 1; x < width - 1; x++)
+                        {
+                            if (preto(src, x, y, stride))
+                            {
+                                int conect = calcConectividade(src, x, y, stride);
+                                if (conect == 1)
+                                {
+                                    int vizinhos = totVizinhos(src, x, y, stride);
+                                    if (vizinhos >= 2 && vizinhos <= 6)
+                                    {
+                                        if (temBranco(src, x, y, stride))
+                                        {
+                                            remPoints.Add(new PixelPoint { x = x, y = y });
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
+
+                    if (remPoints.Count > 0)
+                    {
+                        foreach (var pixel in remPoints)
+                        {
+                            int index = (pixel.y * stride) + (pixel.x * pixelSize);
+                            dst[index] = 255;       
+                            dst[index + 1] = 255;   
+                            dst[index + 2] = 255;   
+                        }
+                        remPoints.Clear();
+                        afinando = true; 
+                    }
+
+                    src = dst;
                 }
 
-                foreach (var pixel in remPoints)
-                {
-                    setPixel(pixelsDest, stride, pixel.i, pixel.j, Color.White);
-                }
-
-                if (remPoints.Count > 0)
-                {
-                    afinando = true;
-                }
-
-              
+           
+                imageBitmapSrc.UnlockBits(bitmapDataSrc);
+                imageBitmapDest.UnlockBits(bitmapDataDest);
             }
-
-            // Unlock the bits for both bitmaps
-            imageBitmapSrc.UnlockBits(bitmapDataSrc);
-            imageBitmapDest.UnlockBits(bitmapDataDest);
         }
 
-        private static bool isPreto(byte[] pixels, int stride, int x, int y)
+        private unsafe static bool preto(byte* src, int x, int y, int stride)
         {
-            int index = y * stride + x * 3;
-            return pixels[index] == 0 && pixels[index + 1] == 0 && pixels[index + 2] == 0;
+            // int index = (y * stride) + (x * 3);
+            int index = (y * stride) + (x * 3);
+            byte b = src[index];
+            byte g = src[index + 1];
+            byte r = src[index + 2];
+
+
+            byte gray = (byte)((r + g + b) / 3);
+
+
+            if (gray >= 240)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+   
         }
 
-        private static bool isBranco(byte[] pixels, int stride, int x, int y)
+        private unsafe static bool branco(byte* src, int x, int y, int stride)
         {
-            int index = y * stride + x * 3;
-            return pixels[index] == 255 && pixels[index + 1] == 255 && pixels[index + 2] == 255;
+            // int index = (y * stride) + (x * 3);
+            int index = (y * stride) + (x * 3);
+            byte b = src[index];
+            byte g = src[index + 1];
+            byte r = src[index + 2];
+
+
+            byte gray = (byte)((r + g + b) / 3);
+
+
+            if (gray >= 240)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private static int calcConectividade(byte[] pixels, int stride, int x, int y)
+    
+    
+        private unsafe static int calcConectividade(byte* src, int i, int j, int stride)
         {
             int conectividade = 0;
-            bool[] vetorPixel = new bool[8];
-            carregaIntervaloP2P9(pixels, stride, vetorPixel, x, y);
+            int tamanho = 8;
 
-            for (int k = 0; k < vetorPixel.Length - 1; k++)
+            bool[] vetorPixel = new bool[tamanho];
+            carregaIntervaloP2P9(src, vetorPixel, i, j, stride);
+
+            for (int k = 0; k < tamanho - 1; k++)
             {
-                if (!vetorPixel[k] && vetorPixel[k + 1])
+                if (vetorPixel[k] && !vetorPixel[k + 1])
                 {
                     conectividade++;
                 }
             }
 
-            if (!vetorPixel[7] && vetorPixel[0])
+            if (vetorPixel[tamanho - 1] && !vetorPixel[0])
             {
                 conectividade++;
             }
@@ -381,15 +519,17 @@ namespace ProcessamentoImagens
             return conectividade;
         }
 
-        private static int calcVizinho(byte[] pixels, int stride, int x, int y)
+        private unsafe static int totVizinhos(byte* src, int i, int j, int stride)
         {
             int vizinhos = 0;
-            bool[] vetorPixel = new bool[8];
-            carregaIntervaloP2P9(pixels, stride, vetorPixel, x, y);
+            int tamanho = 8;
 
-            for (int k = 0; k < vetorPixel.Length; k++)
+            bool[] vetorPixel = new bool[tamanho];
+            carregaIntervaloP2P9(src, vetorPixel, i, j, stride);
+
+            for (int k = 0; k < tamanho; k++)
             {
-                if (vetorPixel[k])
+                if (!(i == k && j == k) &&!vetorPixel[k]) // Conta os pixels pretos
                 {
                     vizinhos++;
                 }
@@ -398,36 +538,37 @@ namespace ProcessamentoImagens
             return vizinhos;
         }
 
-        private static void carregaIntervaloP2P9(byte[] pixels, int stride, bool[] vetorPixelPoint, int x, int y)
+
+
+        private unsafe static void carregaIntervaloP2P9(byte* src, bool[] vetorPixelPoint, int i, int j, int stride)
         {
-            vetorPixelPoint[0] = isPreto(pixels, stride, x, y - 1); // P2
-            vetorPixelPoint[1] = isPreto(pixels, stride, x + 1, y - 1); // P3
-            vetorPixelPoint[2] = isPreto(pixels, stride, x + 1, y); // P4
-            vetorPixelPoint[3] = isPreto(pixels, stride, x + 1, y + 1); // P5
-            vetorPixelPoint[4] = isPreto(pixels, stride, x, y + 1); // P6
-            vetorPixelPoint[5] = isPreto(pixels, stride, x - 1, y + 1); // P7
-            vetorPixelPoint[6] = isPreto(pixels, stride, x - 1, y); // P8
-            vetorPixelPoint[7] = isPreto(pixels, stride, x - 1, y - 1); // P9
+            vetorPixelPoint[0] = branco(src, i, j - 1, stride);   // P2
+            vetorPixelPoint[1] = branco(src, i + 1, j - 1, stride); // P3
+            vetorPixelPoint[2] = branco(src, i + 1, j, stride);     // P4
+            vetorPixelPoint[3] = branco(src, i + 1, j + 1, stride); // P5
+            vetorPixelPoint[4] = branco(src, i, j + 1, stride);     // P6
+            vetorPixelPoint[5] = branco(src, i - 1, j + 1, stride); // P7
+            vetorPixelPoint[6] = branco(src, i - 1, j, stride);     // P8
+            vetorPixelPoint[7] = branco(src, i - 1, j - 1, stride); // P9
         }
 
-        private static void setPixel(byte[] pixels, int stride, int x, int y, Color color)
-        {
-            int index = y * stride + x * 3;
-            pixels[index] = color.B;
-            pixels[index + 1] = color.G;
-            pixels[index + 2] = color.R;
-        }
 
-        private static bool temBranco(byte[] pixels, int stride, int x, int y, int offsetX, int offsetY)
+        private unsafe static bool temBranco(byte* src, int x, int y, int stride)
         {
-            int newX = x + offsetX;
-            int newY = y + offsetY;
-            return isBranco(pixels, stride, newX, newY);
+                                           
+            if (branco(src,  x,  y-1,  stride) || branco(src, x+1, y, stride) || branco(src, x-1, y, stride) && branco(src, x + 1, y, stride) || branco(src, x , y+1, stride) || branco(src, x, y-1, stride))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
     struct PixelPoint
     {
-        public int i, j;
+        public int x, y;
     }
 }

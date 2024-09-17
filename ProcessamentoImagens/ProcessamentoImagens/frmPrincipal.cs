@@ -112,6 +112,10 @@ namespace ProcessamentoImagens
         {
             Bitmap imgDest = new Bitmap(image);
             imageBitmap = (Bitmap)image;
+            Filtros.pretoeBranco(imageBitmap, imgDest);
+            imageBitmap = imgDest;
+            pictBoxImg1.Image = imgDest;
+            imgDest = new Bitmap(image);
             Filtros.ZhangSuen(imageBitmap, imgDest);
             pictBoxImg2.Image = imgDest;
         }
