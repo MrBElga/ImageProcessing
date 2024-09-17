@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
@@ -298,7 +298,7 @@ namespace ProcessamentoImagens
             {
                 byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
                 byte* dst = (byte*)bitmapDataDest.Scan0.ToPointer();
-                byte threshold = 220;
+                byte threshold = 228;
 
                 for (int y = 0; y < height; y++)
                 {
@@ -351,9 +351,9 @@ namespace ProcessamentoImagens
 
             int stride = bitmapDataSrc.Stride;
             int padding = bitmapDataSrc.Stride - (width * pixelSize);
+
             unsafe
             {
-                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
                 byte* dst = (byte*)bitmapDataDest.Scan0.ToPointer();
 
                 bool afinando = true;
@@ -369,16 +369,16 @@ namespace ProcessamentoImagens
                     {
                         for (int x = 1; x < width - 1; x++)
                         {
-                            if (preto(src, x, y, stride))
+                            if (preto(dst, x, y, stride))
                             {
-                                int conect = calcConectividade(src, x, y, stride);
+                                int conect = calcConectividade(dst, x, y, stride);
                                 if (conect == 1)
                                 {
-                                    int vizinhos = totVizinhos(src, x, y, stride);
+                                    int vizinhos = totVizinhos(dst, x, y, stride);
                                     if (vizinhos >= 2 && vizinhos <= 6)
                                     {
-                                        if (branco(src, x, y - 1, stride) || branco(src, x + 1, y, stride) || branco(src, x - 1, y, stride) &&
-                                            branco(src, x - 1, y, stride) || branco(src, x, y + 1, stride) || branco(src, x, y - 1, stride))
+                                        if (branco(dst, x, y - 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x - 1, y, stride) &&
+                                            branco(dst, x, y + 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x, y - 1, stride))
                                         {
                                             remPoints.Add(new PixelPoint { x = x, y = y });
                                         }
@@ -393,37 +393,35 @@ namespace ProcessamentoImagens
                         foreach (var pixel in remPoints)
                         {
                             int index = (pixel.y * stride) + (pixel.x * pixelSize);
-                            dst[index] = 255;       
-                            dst[index + 1] = 255;   
-                            dst[index + 2] = 255;   
+                            dst[index] = 255;       // B
+                            dst[index + 1] = 255;   // G
+                            dst[index + 2] = 255;   // R
                         }
                         remPoints.Clear();
-                     
-
+                        afinando = true;
                     }
 
                     // Passo 2
                     for (int y = 1; y < height - 1; y++)
                     {
                         for (int x = 1; x < width - 1; x++)
-                        {   
-                            if (preto(src, x, y, stride))
+                        {
+                            if (preto(dst, x, y, stride))
                             {
-                                int conect = calcConectividade(src, x, y, stride);
+                                int conect = calcConectividade(dst, x, y, stride);
                                 if (conect == 1)
                                 {
-                                    int vizinhos = totVizinhos(src, x, y, stride);
+                                    int vizinhos = totVizinhos(dst, x, y, stride);
                                     if (vizinhos >= 2 && vizinhos <= 6)
                                     {
-                                       
-                                        if (branco(src, x, y-1, stride) || branco(src, x+1, y, stride) || branco(src, x, y+1, stride) &&
-                                            branco(src, x-1, y, stride) || branco(src, x, y+1, stride) || branco(src, x+1, y, stride))
+                                        if (branco(dst, x, y - 1, stride) || branco(dst, x + 1, y, stride) || branco(dst, x, y + 1, stride) &&
+                                            branco(dst, x - 1, y, stride) || branco(dst, x, y + 1, stride) || branco(dst, x + 1, y, stride))
                                         {
                                             remPoints.Add(new PixelPoint { x = x, y = y });
                                         }
                                     }
                                 }
-                            }   
+                            }
                         }
                     }
 
@@ -432,40 +430,37 @@ namespace ProcessamentoImagens
                         foreach (var pixel in remPoints)
                         {
                             int index = (pixel.y * stride) + (pixel.x * pixelSize);
-                            dst[index] = 255;       
-                            dst[index + 1] = 255;   
-                            dst[index + 2] = 255;   
+                            dst[index] = 255;       // B
+                            dst[index + 1] = 255;   // G
+                            dst[index + 2] = 255;   // R
                         }
                         remPoints.Clear();
-                        afinando = true; 
+                        afinando = true;
                     }
-
-                    src += padding;
                 }
 
-           
                 imageBitmapSrc.UnlockBits(bitmapDataSrc);
                 imageBitmapDest.UnlockBits(bitmapDataDest);
             }
         }
-
         private unsafe static bool preto(byte* src, int x, int y, int stride)
         {
-            // int index = (y * stride) + (x * 3);
             int index = (y * stride) + (x * 3);
             byte b = src[index];
-            return b == 0;
+            byte g = src[index + 1];
+            byte r = src[index + 2];
+            return (r + g + b) / 3 == 0; 
         }
 
         private unsafe static bool branco(byte* src, int x, int y, int stride)
         {
             int index = (y * stride) + (x * 3);
             byte b = src[index];
-            return b == 255;
+            byte g = src[index + 1];
+            byte r = src[index + 2];
+            return (r + g + b) / 3 == 255; 
         }
 
-    
-    
         private unsafe static int calcConectividade(byte* src, int i, int j, int stride)
         {
             int conectividade = 0;
