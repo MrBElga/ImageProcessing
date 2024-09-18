@@ -120,6 +120,31 @@ namespace ProcessamentoImagens
             imgDest = new Bitmap(imageBitmap);
             Filtros.ZhangSuen(imageBitmap, imgDest);
             pictBoxImg2.Image = imgDest;
+            imgDest.Save("afina.png",ImageFormat.Png);
+        }
+
+        private void BordaSDma_Click(object sender, EventArgs e)
+        {
+            Bitmap imgDest = new Bitmap(image);
+            imageBitmap = (Bitmap)image;
+            Filtros.pretoeBranco(imageBitmap, imgDest);
+            imageBitmap = imgDest;
+
+            pictBoxImg1.Image = imageBitmap;
+            imgDest = new Bitmap(imageBitmap);
+            Filtros.ZhangSuen(imageBitmap, imgDest);
+            imageBitmap = new Bitmap(imgDest);
+          
+            pictBoxImg1.Image = imageBitmap;
+
+            Filtros.borda(imgDest, imgDest);
+            pictBoxImg2.Image = imgDest;
+            imgDest.Save("borda.png", ImageFormat.Png);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

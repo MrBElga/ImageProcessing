@@ -37,7 +37,7 @@
             this.ZhangSuenComDMA = new System.Windows.Forms.Button();
             this.espelhoVsemDMA = new System.Windows.Forms.Button();
             this.espelhoHsemDMA = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.BordaSDma = new System.Windows.Forms.Button();
             this.espelhoVDMA = new System.Windows.Forms.Button();
             this.espelhoHDMA = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -85,7 +85,7 @@
             // 
             // ZhangSuenSemDMA
             // 
-            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(1316, 654);
+            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(578, 654);
             this.ZhangSuenSemDMA.Name = "ZhangSuenSemDMA";
             this.ZhangSuenSemDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenSemDMA.TabIndex = 108;
@@ -94,7 +94,7 @@
             // 
             // ZhangSuenComDMA
             // 
-            this.ZhangSuenComDMA.Location = new System.Drawing.Point(1316, 693);
+            this.ZhangSuenComDMA.Location = new System.Drawing.Point(578, 693);
             this.ZhangSuenComDMA.Name = "ZhangSuenComDMA";
             this.ZhangSuenComDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenComDMA.TabIndex = 109;
@@ -122,14 +122,15 @@
             this.espelhoHsemDMA.UseVisualStyleBackColor = true;
             this.espelhoHsemDMA.Click += new System.EventHandler(this.espelhoHsemDMA_Click);
             // 
-            // button5
+            // BordaSDma
             // 
-            this.button5.Location = new System.Drawing.Point(578, 654);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(167, 23);
-            this.button5.TabIndex = 114;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            this.BordaSDma.Location = new System.Drawing.Point(707, 654);
+            this.BordaSDma.Name = "BordaSDma";
+            this.BordaSDma.Size = new System.Drawing.Size(167, 23);
+            this.BordaSDma.TabIndex = 114;
+            this.BordaSDma.Text = "Borda Sem DMA";
+            this.BordaSDma.UseVisualStyleBackColor = true;
+            this.BordaSDma.Click += new System.EventHandler(this.BordaSDma_Click);
             // 
             // espelhoVDMA
             // 
@@ -153,12 +154,13 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(578, 693);
+            this.button8.Location = new System.Drawing.Point(707, 693);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(167, 23);
             this.button8.TabIndex = 117;
             this.button8.Text = "button8";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // frmPrincipal
             // 
@@ -168,7 +170,7 @@
             this.Controls.Add(this.button8);
             this.Controls.Add(this.espelhoHDMA);
             this.Controls.Add(this.espelhoVDMA);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.BordaSDma);
             this.Controls.Add(this.espelhoHsemDMA);
             this.Controls.Add(this.espelhoVsemDMA);
             this.Controls.Add(this.ZhangSuenComDMA);
@@ -197,7 +199,7 @@
         private System.Windows.Forms.Button ZhangSuenComDMA;
         private System.Windows.Forms.Button espelhoVsemDMA;
         private System.Windows.Forms.Button espelhoHsemDMA;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button BordaSDma;
         private System.Windows.Forms.Button espelhoVDMA;
         private System.Windows.Forms.Button espelhoHDMA;
         private System.Windows.Forms.Button button8;

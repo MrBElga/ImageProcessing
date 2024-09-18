@@ -298,7 +298,7 @@ namespace ProcessamentoImagens
             {
                 byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
                 byte* dst = (byte*)bitmapDataDest.Scan0.ToPointer();
-                byte threshold = 228;
+                byte threshold = 221;
 
                 for (int y = 0; y < height; y++)
                 {
@@ -516,7 +516,116 @@ namespace ProcessamentoImagens
         }
 
 
-  
+        public static void borda(Bitmap imagemSrc, Bitmap imagemDst)
+        {
+            int width = imagemSrc.Width;
+            int height = imagemDst.Height;
+            int maiorX=0, maiorY = 0,menorX=99999,menorY=99999;
+
+            bool flag = true;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+
+                    if (imagemSrc.GetPixel(x, y).B == 0 && imagemSrc.GetPixel(x - 1, y).B == 255)
+                    {
+                        maiorY = y;
+                        menorY = y;
+                        maiorX = x;
+                        menorX = x;
+                        x--;
+                        imagemSrc.SetPixel(x, y, Color.Gray);
+                        do
+                        {
+                            flag = false;
+
+                            if (imagemSrc.GetPixel(x + 1, y).B == 255 && imagemSrc.GetPixel(x + 1, y - 1).B == 0)
+                            { // o da frente eh branco e o da diagonal eh preto
+                                x++;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x + 1, y - 1).B == 255 && imagemSrc.GetPixel(x, y - 1).B == 0 && imagemSrc.GetPixel(x + 1, y).B != 0)
+                            { // diagonal eh branco e o de cima eh preto e o da frente n eh preto
+                                x++;
+                                y--;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x, y - 1).B == 255 && imagemSrc.GetPixel(x - 1, y - 1).B == 0)
+                            { //o de cima eh branco e o da diagonal eh preto 
+                                y--;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x - 1, y - 1).B == 255 && imagemSrc.GetPixel(x - 1, y).B == 0)
+                            { // diagonal eh branco e o de tras eh preto
+                                x--;
+                                y--;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x - 1, y).B == 255 && imagemSrc.GetPixel(x - 1, y + 1).B == 0)
+                            { // o de tras eh branco e a diagonal de baixo eh preta
+                                x--;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x - 1, y + 1).B == 255 && imagemSrc.GetPixel(x, y + 1).B == 0)
+                            {// o da diagonal de baixo eh branco e o de baixo eh preto
+                                x--;
+                                y++;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x, y + 1).B == 255 && imagemSrc.GetPixel(x + 1, y + 1).B == 0)
+                            { // o de baixo eh branco e o da diagonal da direita de baixo eh preto
+                                y++;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            else if (imagemSrc.GetPixel(x + 1, y + 1).B == 255 && imagemSrc.GetPixel(x + 1, y).B == 0)
+                            { // o da diagonal da direita de baixo eh branco e o de cima eh 
+                                x++;
+                                y++;
+                                imagemSrc.SetPixel(x, y, Color.Gray);
+                                flag = true;
+                            }
+                            if (x > maiorX)
+                                maiorX = x;
+                            if (x < menorX)
+                                menorX = x;
+                            if (y > maiorY)
+                                maiorY = y;
+                            if (y < menorY)
+                                menorY = y;
+                          
+                        } while (flag);
+
+
+                     
+               
+
+                        x++;
+                    }
+
+                }
+            }
+           
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (imagemSrc.GetPixel(x,y).R == 0)
+                    {
+                        imagemSrc.SetPixel(x, y, Color.White);
+                    }
+                }
+            }
+        }
+
     }
 
     struct Ponto
