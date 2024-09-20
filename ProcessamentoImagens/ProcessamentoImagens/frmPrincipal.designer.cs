@@ -33,14 +33,8 @@
             this.btnAbrirImagem = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.ZhangSuenSemDMA = new System.Windows.Forms.Button();
             this.ZhangSuenComDMA = new System.Windows.Forms.Button();
-            this.espelhoVsemDMA = new System.Windows.Forms.Button();
-            this.espelhoHsemDMA = new System.Windows.Forms.Button();
             this.BordaSDma = new System.Windows.Forms.Button();
-            this.espelhoVDMA = new System.Windows.Forms.Button();
-            this.espelhoHDMA = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictBoxImg2)).BeginInit();
             this.SuspendLayout();
@@ -83,18 +77,9 @@
             this.btnLimpar.UseVisualStyleBackColor = true;
             this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
-            // ZhangSuenSemDMA
-            // 
-            this.ZhangSuenSemDMA.Location = new System.Drawing.Point(578, 654);
-            this.ZhangSuenSemDMA.Name = "ZhangSuenSemDMA";
-            this.ZhangSuenSemDMA.Size = new System.Drawing.Size(123, 23);
-            this.ZhangSuenSemDMA.TabIndex = 108;
-            this.ZhangSuenSemDMA.Text = "ZhangSuen Sem DMA";
-            this.ZhangSuenSemDMA.UseVisualStyleBackColor = true;
-            // 
             // ZhangSuenComDMA
             // 
-            this.ZhangSuenComDMA.Location = new System.Drawing.Point(578, 693);
+            this.ZhangSuenComDMA.Location = new System.Drawing.Point(219, 654);
             this.ZhangSuenComDMA.Name = "ZhangSuenComDMA";
             this.ZhangSuenComDMA.Size = new System.Drawing.Size(123, 23);
             this.ZhangSuenComDMA.TabIndex = 109;
@@ -102,29 +87,9 @@
             this.ZhangSuenComDMA.UseVisualStyleBackColor = true;
             this.ZhangSuenComDMA.Click += new System.EventHandler(this.ZhangSuenComDMA_Click);
             // 
-            // espelhoVsemDMA
-            // 
-            this.espelhoVsemDMA.Location = new System.Drawing.Point(232, 654);
-            this.espelhoVsemDMA.Name = "espelhoVsemDMA";
-            this.espelhoVsemDMA.Size = new System.Drawing.Size(167, 23);
-            this.espelhoVsemDMA.TabIndex = 112;
-            this.espelhoVsemDMA.Text = "Espelho Vertical Sem DMA";
-            this.espelhoVsemDMA.UseVisualStyleBackColor = true;
-            this.espelhoVsemDMA.Click += new System.EventHandler(this.espelhoVsemDMA_Click);
-            // 
-            // espelhoHsemDMA
-            // 
-            this.espelhoHsemDMA.Location = new System.Drawing.Point(405, 654);
-            this.espelhoHsemDMA.Name = "espelhoHsemDMA";
-            this.espelhoHsemDMA.Size = new System.Drawing.Size(167, 23);
-            this.espelhoHsemDMA.TabIndex = 113;
-            this.espelhoHsemDMA.Text = "Espelho horizontal sem DMA";
-            this.espelhoHsemDMA.UseVisualStyleBackColor = true;
-            this.espelhoHsemDMA.Click += new System.EventHandler(this.espelhoHsemDMA_Click);
-            // 
             // BordaSDma
             // 
-            this.BordaSDma.Location = new System.Drawing.Point(707, 654);
+            this.BordaSDma.Location = new System.Drawing.Point(348, 654);
             this.BordaSDma.Name = "BordaSDma";
             this.BordaSDma.Size = new System.Drawing.Size(167, 23);
             this.BordaSDma.TabIndex = 114;
@@ -132,49 +97,13 @@
             this.BordaSDma.UseVisualStyleBackColor = true;
             this.BordaSDma.Click += new System.EventHandler(this.BordaSDma_Click);
             // 
-            // espelhoVDMA
-            // 
-            this.espelhoVDMA.Location = new System.Drawing.Point(232, 693);
-            this.espelhoVDMA.Name = "espelhoVDMA";
-            this.espelhoVDMA.Size = new System.Drawing.Size(167, 23);
-            this.espelhoVDMA.TabIndex = 115;
-            this.espelhoVDMA.Text = "espelho vertical com DMA";
-            this.espelhoVDMA.UseVisualStyleBackColor = true;
-            this.espelhoVDMA.Click += new System.EventHandler(this.espelhoVDMA_Click);
-            // 
-            // espelhoHDMA
-            // 
-            this.espelhoHDMA.Location = new System.Drawing.Point(405, 693);
-            this.espelhoHDMA.Name = "espelhoHDMA";
-            this.espelhoHDMA.Size = new System.Drawing.Size(167, 23);
-            this.espelhoHDMA.TabIndex = 116;
-            this.espelhoHDMA.Text = "Espelho Horizontal com DMA";
-            this.espelhoHDMA.UseVisualStyleBackColor = true;
-            this.espelhoHDMA.Click += new System.EventHandler(this.espelhoHDMA_Click);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(707, 693);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(167, 23);
-            this.button8.TabIndex = 117;
-            this.button8.Text = "button8";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1569, 728);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.espelhoHDMA);
-            this.Controls.Add(this.espelhoVDMA);
             this.Controls.Add(this.BordaSDma);
-            this.Controls.Add(this.espelhoHsemDMA);
-            this.Controls.Add(this.espelhoVsemDMA);
             this.Controls.Add(this.ZhangSuenComDMA);
-            this.Controls.Add(this.ZhangSuenSemDMA);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.btnAbrirImagem);
             this.Controls.Add(this.pictBoxImg2);
@@ -195,14 +124,8 @@
         private System.Windows.Forms.Button btnAbrirImagem;
         private System.Windows.Forms.Button btnLimpar;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.Button ZhangSuenSemDMA;
         private System.Windows.Forms.Button ZhangSuenComDMA;
-        private System.Windows.Forms.Button espelhoVsemDMA;
-        private System.Windows.Forms.Button espelhoHsemDMA;
         private System.Windows.Forms.Button BordaSDma;
-        private System.Windows.Forms.Button espelhoVDMA;
-        private System.Windows.Forms.Button espelhoHDMA;
-        private System.Windows.Forms.Button button8;
     }
 }
 

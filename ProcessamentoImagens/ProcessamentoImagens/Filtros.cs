@@ -10,275 +10,6 @@ namespace ProcessamentoImagens
 {
     class Filtros
     {
-        //sem acesso direto a memoria
-        public static void convert_to_gray(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imageBitmapSrc.Width;
-            int height = imageBitmapSrc.Height;
-            int r, g, b;
-            Int32 gs;
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    //obtendo a cor do pixel
-                    Color cor = imageBitmapSrc.GetPixel(x, y);
-
-                    r = cor.R;
-                    g = cor.G;
-                    b = cor.B;
-                    gs = (Int32)(r * 0.2990 + g * 0.5870 + b * 0.1140);
-
-                    //nova cor
-                    Color newcolor = Color.FromArgb(gs, gs, gs);
-
-                    imageBitmapDest.SetPixel(x, y, newcolor);
-                }
-            }
-        }
-
-        //sem acesso direito a memoria
-        public static void negativo(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imageBitmapSrc.Width;
-            int height = imageBitmapSrc.Height;
-            int r, g, b;
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    //obtendo a cor do pixel
-                    Color cor = imageBitmapSrc.GetPixel(x, y);
-
-                    r = cor.R;
-                    g = cor.G;
-                    b = cor.B;
-
-                    //nova cor
-                    Color newcolor = Color.FromArgb(255 - r, 255 - g, 255 - b);
-
-                    imageBitmapDest.SetPixel(x, y, newcolor);
-                }
-            }
-        }
-
-        //com acesso direto a memória
-        public static void convert_to_grayDMA(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imageBitmapSrc.Width;
-            int height = imageBitmapSrc.Height;
-            int pixelSize = 3;
-            Int32 gs;
-
-            //lock dados bitmap origem
-            BitmapData bitmapDataSrc = imageBitmapSrc.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-            //lock dados bitmap destino
-            BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            int padding = bitmapDataSrc.Stride - (width * pixelSize);
-
-            unsafe
-            {
-                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
-                byte* dst = (byte*)bitmapDataDst.Scan0.ToPointer();
-
-                int r, g, b;
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < width; x++)
-                    {
-                        b = *(src++); //está armazenado dessa forma: b g r 
-                        g = *(src++);
-                        r = *(src++);
-                        gs = (Int32)(r * 0.2990 + g * 0.5870 + b * 0.1140);
-                        *(dst++) = (byte)gs;
-                        *(dst++) = (byte)gs;
-                        *(dst++) = (byte)gs;
-                    }
-                    src += padding;
-                    dst += padding;
-                }
-            }
-            //unlock imagem origem
-            imageBitmapSrc.UnlockBits(bitmapDataSrc);
-            //unlock imagem destino
-            imageBitmapDest.UnlockBits(bitmapDataDst);
-        }
-
-        //com acesso direito a memoria
-        public static void negativoDMA(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imageBitmapSrc.Width;
-            int height = imageBitmapSrc.Height;
-            int pixelSize = 3;
-
-            //lock dados bitmap origem 
-            BitmapData bitmapDataSrc = imageBitmapSrc.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-            //lock dados bitmap destino
-            BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-            int padding = bitmapDataSrc.Stride - (width * pixelSize);
-
-            unsafe
-            {
-                byte* src1 = (byte*)bitmapDataSrc.Scan0.ToPointer();
-                byte* dst = (byte*)bitmapDataDst.Scan0.ToPointer();
-
-                int r, g, b;
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < width; x++)
-                    {
-                        b = *(src1++); //está armazenado dessa forma: b g r 
-                        g = *(src1++);
-                        r = *(src1++);
-
-                        *(dst++) = (byte)(255 - b);
-                        *(dst++) = (byte)(255 - g);
-                        *(dst++) = (byte)(255 - r);
-                    }
-                    src1 += padding;
-                    dst += padding;
-                }
-            }
-            //unlock imagem origem 
-            imageBitmapSrc.UnlockBits(bitmapDataSrc);
-            //unlock imagem destino
-            imageBitmapDest.UnlockBits(bitmapDataDst);
-        }
-
-
-
-
-        //espelho vertical
-        public static void verticalSemDMA(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imageBitmapSrc.Width;
-            int height = imageBitmapSrc.Height;
-            int r, g, b, Raux, Baux, Gaux;
-            for (int y = 0; y < height; y++)
-            {
-                int widthaux = width - 1;
-                for (int x = 0; x < width; x++)
-                {
-
-                    //obtendo a cor do pixel
-
-                    Color cor = imageBitmapSrc.GetPixel(x, y);
-                    Color coraux = imageBitmapSrc.GetPixel(widthaux, y);
-
-                    r = cor.R;
-                    g = cor.G;
-                    b = cor.B;
-
-                    Raux = coraux.R;
-                    Gaux = coraux.G;
-                    Baux = coraux.B;
-
-                    //nova cor
-                    Color newcolor = Color.FromArgb(r, g, b);
-
-                    imageBitmapDest.SetPixel(widthaux, y, newcolor);
-                    newcolor = Color.FromArgb(Raux, Gaux, Baux);
-                    imageBitmapDest.SetPixel(x, y, newcolor);
-                    widthaux--;
-
-                }
-
-            }
-        }
-
-        //espelho horizontal
-        public static void horizontalSemDMA(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imageBitmapSrc.Width;
-            int height = imageBitmapSrc.Height;
-            int r, g, b, Raux, Baux, Gaux;
-            int heightaux = height - 1;
-            for (int y = 0; y < height; y++)
-            {
-
-                for (int x = 0; x < width; x++)
-                {
-
-                    //obtendo a cor do pixel
-
-                    Color cor = imageBitmapSrc.GetPixel(x, y);
-                    Color coraux = imageBitmapSrc.GetPixel(x, heightaux);
-
-                    r = cor.R;
-                    g = cor.G;
-                    b = cor.B;
-
-                    Raux = coraux.R;
-                    Gaux = coraux.G;
-                    Baux = coraux.B;
-
-                    //nova cor
-                    Color newcolor = Color.FromArgb(r, g, b);
-
-                    imageBitmapDest.SetPixel(x, heightaux, newcolor);
-                    newcolor = Color.FromArgb(Raux, Gaux, Baux);
-                    imageBitmapDest.SetPixel(x, y, newcolor);
-
-
-                }
-                heightaux--;
-            }
-        }
-
-
-
-        public static void espelhoVeticalDMA(Bitmap imagebitmapSrc, Bitmap imageBitmapDest)
-        {
-            int width = imagebitmapSrc.Width;
-            int height = imagebitmapSrc.Height;
-            int pixelSize = 3;
-
-            // Lock dados bitmap origem
-            BitmapData bitmapDataSrc = imagebitmapSrc.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-            // Lock dados bitmap destino
-            BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
-                ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
-
-            int srcStride = bitmapDataSrc.Stride;
-            int dstStride = bitmapDataDst.Stride;
-
-            unsafe
-            {
-                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
-                byte* dst = (byte*)bitmapDataDst.Scan0.ToPointer();
-
-                for (int y = 0; y < height; y++)
-                {
-                    byte* srcLine = src + (y * srcStride);
-                    byte* dstLine = dst + (y * dstStride);
-
-                    for (int x = 0; x < width; x++)
-                    {
-                        // Calcula a posição do pixel no lado direito da linha
-                        int srcIndex = (width - x - 1) * pixelSize;
-
-                        // Copia os valores dos pixels
-                        dstLine[x * pixelSize] = srcLine[srcIndex];
-                        dstLine[x * pixelSize + 1] = srcLine[srcIndex + 1];
-                        dstLine[x * pixelSize + 2] = srcLine[srcIndex + 2];
-                    }
-                }
-            }
-
-            // Unlock imagem origem
-            imagebitmapSrc.UnlockBits(bitmapDataSrc);
-            // Unlock imagem destino
-            imageBitmapDest.UnlockBits(bitmapDataDst);
-        }
 
         public static void pretoeBranco(Bitmap sourceBitmap, Bitmap imageBitmapDest)
         {
@@ -311,9 +42,9 @@ namespace ProcessamentoImagens
                         byte g = src[srcIndex + 1];
                         byte r = src[srcIndex + 2];
 
-                        int gray =((r + g + b) / pixelSize);
+                        int gray = (int)(0.299 * r + 0.587 * g + 0.114 * b);
 
-               
+
                         if (gray >= threshold)
                         {
                             dst[dstIndex] = 255;         
@@ -519,112 +250,124 @@ namespace ProcessamentoImagens
         public static void borda(Bitmap imagemSrc, Bitmap imagemDst)
         {
             int width = imagemSrc.Width;
-            int height = imagemDst.Height;
-            int maiorX=0, maiorY = 0,menorX=99999,menorY=99999;
+            int height = imagemSrc.Height;
 
-            bool flag = true;
-
-            for (int y = 0; y < height; y++)
+            for (int y = 1; y < height - 1; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 1; x < width - 1; x++)
                 {
-
-                    if (imagemSrc.GetPixel(x, y).B == 0 && imagemSrc.GetPixel(x - 1, y).B == 255)
+                    int menorX = x, maiorX = x, menorY = y, maiorY = y;
+                    if (imagemSrc.GetPixel(x + 1, y).B == 0 && imagemSrc.GetPixel(x, y).B == 255)
                     {
-                        maiorY = y;
-                        menorY = y;
-                        maiorX = x;
-                        menorX = x;
-                        x--;
+                        // Inicializa os limites do retângulo
+                   
+
                         imagemSrc.SetPixel(x, y, Color.Gray);
+                        imagemDst.SetPixel(x, y, Color.Black);
+
+                        bool flag;
                         do
                         {
                             flag = false;
+
 
                             if (imagemSrc.GetPixel(x + 1, y).B == 255 && imagemSrc.GetPixel(x + 1, y - 1).B == 0)
                             { // o da frente eh branco e o da diagonal eh preto
                                 x++;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
-                            else if (imagemSrc.GetPixel(x + 1, y - 1).B == 255 && imagemSrc.GetPixel(x, y - 1).B == 0 && imagemSrc.GetPixel(x + 1, y).B != 0)
+                            else if (imagemSrc.GetPixel(x + 1, y - 1).B == 255 && imagemSrc.GetPixel(x, y - 1).B == 0 && imagemSrc.GetPixel(x + 1, y).B != 0 )
                             { // diagonal eh branco e o de cima eh preto e o da frente n eh preto
                                 x++;
                                 y--;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
-                            else if (imagemSrc.GetPixel(x, y - 1).B == 255 && imagemSrc.GetPixel(x - 1, y - 1).B == 0)
+                            else if (imagemSrc.GetPixel(x, y - 1).B == 255 && imagemSrc.GetPixel(x - 1, y - 1).B == 0 )
                             { //o de cima eh branco e o da diagonal eh preto 
                                 y--;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
-                            else if (imagemSrc.GetPixel(x - 1, y - 1).B == 255 && imagemSrc.GetPixel(x - 1, y).B == 0)
+                            else if (imagemSrc.GetPixel(x - 1, y - 1).B == 255 && imagemSrc.GetPixel(x - 1, y).B == 0 && imagemSrc.GetPixel(x, y - 1).B != 0)
                             { // diagonal eh branco e o de tras eh preto
                                 x--;
                                 y--;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
                             else if (imagemSrc.GetPixel(x - 1, y).B == 255 && imagemSrc.GetPixel(x - 1, y + 1).B == 0)
                             { // o de tras eh branco e a diagonal de baixo eh preta
                                 x--;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
-                            else if (imagemSrc.GetPixel(x - 1, y + 1).B == 255 && imagemSrc.GetPixel(x, y + 1).B == 0)
+                            else if (imagemSrc.GetPixel(x - 1, y + 1).B == 255 && imagemSrc.GetPixel(x, y + 1).B == 0 && imagemSrc.GetPixel(x-1, y ).B != 0 )
                             {// o da diagonal de baixo eh branco e o de baixo eh preto
                                 x--;
                                 y++;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
                             else if (imagemSrc.GetPixel(x, y + 1).B == 255 && imagemSrc.GetPixel(x + 1, y + 1).B == 0)
                             { // o de baixo eh branco e o da diagonal da direita de baixo eh preto
                                 y++;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
-                            else if (imagemSrc.GetPixel(x + 1, y + 1).B == 255 && imagemSrc.GetPixel(x + 1, y).B == 0)
+                            else if (imagemSrc.GetPixel(x + 1, y + 1).B == 255 && imagemSrc.GetPixel(x + 1, y).B == 0 && imagemSrc.GetPixel(x, y+1).B != 0)
                             { // o da diagonal da direita de baixo eh branco e o de cima eh 
                                 x++;
                                 y++;
                                 imagemSrc.SetPixel(x, y, Color.Gray);
+                                imagemDst.SetPixel(x, y, Color.Black);
                                 flag = true;
                             }
-                            if (x > maiorX)
-                                maiorX = x;
-                            if (x < menorX)
-                                menorX = x;
-                            if (y > maiorY)
-                                maiorY = y;
-                            if (y < menorY)
-                                menorY = y;
-                          
+
+
+                            // Atualiza os limites do retângulo
+                            maiorX = Math.Max(maiorX, x);
+                            menorX = Math.Min(menorX, x);
+                            maiorY = Math.Max(maiorY, y);
+                            menorY = Math.Min(menorY, y);
+
                         } while (flag);
 
-
-                     
-               
-
-                        x++;
+                        // Desenha os retângulos em torno da região detectada
+                        DesenharRetangulo(imagemDst, menorX, maiorX, menorY, maiorY);
                     }
-
                 }
             }
-           
-            for (int y = 0; y < height; y++)
+
+        }
+
+
+        private static void DesenharRetangulo(Bitmap imagemDst, int menorX, int maiorX, int menorY, int maiorY)
+        {
+            Color vermelho = Color.FromArgb(255, 1, 1);
+            // Desenha a borda superior e inferior
+            for (int i = menorX; i <= maiorX; i++)
             {
-                for (int x = 0; x < width; x++)
-                {
-                    if (imagemSrc.GetPixel(x,y).R == 0)
-                    {
-                        imagemSrc.SetPixel(x, y, Color.White);
-                    }
-                }
+                imagemDst.SetPixel(i, menorY, vermelho);
+                imagemDst.SetPixel(i, maiorY, vermelho);
+            }
+
+            // Desenha a borda esquerda e direita
+            for (int i = menorY; i <= maiorY; i++)
+            {
+                imagemDst.SetPixel(menorX, i, vermelho);
+                imagemDst.SetPixel(maiorX, i, vermelho);
             }
         }
+
 
     }
 

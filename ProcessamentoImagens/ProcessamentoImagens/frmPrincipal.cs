@@ -38,77 +38,6 @@ namespace ProcessamentoImagens
             pictBoxImg2.Image = null;
         }
 
-        private void btnLuminanciaSemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.convert_to_gray(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void btnLuminanciaComDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.convert_to_grayDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void btnNegativoSemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.negativo(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void btnNegativoComDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.negativoDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-  
-
-        private void espelhoVerticalDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.verticalSemDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void espelhoVsemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.verticalSemDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void espelhoVDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.espelhoVeticalDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void espelhoHsemDMA_Click(object sender, EventArgs e)
-        {
-            Bitmap imgDest = new Bitmap(image);
-            imageBitmap = (Bitmap)image;
-            Filtros.horizontalSemDMA(imageBitmap, imgDest);
-            pictBoxImg2.Image = imgDest;
-        }
-
-        private void espelhoHDMA_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ZhangSuenComDMA_Click(object sender, EventArgs e)
         {
             Bitmap imgDest = new Bitmap(image);
@@ -134,10 +63,14 @@ namespace ProcessamentoImagens
             imgDest = new Bitmap(imageBitmap);
             Filtros.ZhangSuen(imageBitmap, imgDest);
             imageBitmap = new Bitmap(imgDest);
-          
             pictBoxImg1.Image = imageBitmap;
 
-            Filtros.borda(imgDest, imgDest);
+            imgDest = new Bitmap(imageBitmap.Width, imageBitmap.Height);
+            using (Graphics g = Graphics.FromImage(imgDest))
+            {
+                g.Clear(Color.White); 
+            }
+            Filtros.borda(imageBitmap, imgDest);
             pictBoxImg2.Image = imgDest;
             imgDest.Save("borda.png", ImageFormat.Png);
         }
