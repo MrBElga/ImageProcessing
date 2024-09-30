@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\",
+  "WorkspaceRootPath": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\zhangSuen\u002BContorno\u002BRetangulo\\ProcessamentoImagens\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|c:\\users\\danie\\onedrive\\desktop\\tp\\imageprocessing\\processamentoimagens\\processamentoimagens\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|c:\\users\\danie\\onedrive\\desktop\\tp\\imageprocessing\\zhangsuen\u002Bcontorno\u002Bretangulo\\processamentoimagens\\processamentoimagens\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -20,9 +20,9 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Filtros.cs",
-              "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\Filtros.cs",
+              "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\zhangSuen\u002BContorno\u002BRetangulo\\ProcessamentoImagens\\ProcessamentoImagens\\Filtros.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\Filtros.cs",
-              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\ProcessamentoImagens\\ProcessamentoImagens\\Filtros.cs",
+              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\zhangSuen\u002BContorno\u002BRetangulo\\ProcessamentoImagens\\ProcessamentoImagens\\Filtros.cs",
               "RelativeToolTip": "ProcessamentoImagens\\Filtros.cs",
               "ViewState": "AgIAAIgAAAAAAAAAAAAkwHoBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
