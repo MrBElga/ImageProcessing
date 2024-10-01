@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace ProcessamentoImagens
 {
@@ -297,11 +298,145 @@ namespace ProcessamentoImagens
 
 
         //2) Separe o Canal R(vermelho), o Canal G(verde) e o canal B(azul); 
+        
+        public static void separarCanais(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+            int r, g, b;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    //obtendo a cor do pixel
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+
+                    r = cor.R;
+                    g = cor.G;
+                    b = cor.B;
+
+                    //nova cor
+                    Color newcolor = Color.FromArgb(r, g, b);
+
+                    imageBitmapDest.SetPixel(x, y, newcolor);
+                }
+            }
+        }
+
+        public static void separarCanaisComDMA(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+            int pixelSize = 3;
+
+            //lock dados bitmap origem 
+            BitmapData bitmapDataSrc = imageBitmapSrc.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            //lock dados bitmap destino
+            BitmapData bitmapDataDst = imageBitmapDest.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+
+            unsafe
+            {
+                byte* src = (byte*)bitmapDataSrc.Scan0.ToPointer();
+                byte* dst = (byte*)bitmapDataDst.Scan0.ToPointer();
+                int b, g, r;
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        b = *(src++); //está armazenado dessa forma: b g r 
+                        g = *(src++);
+                        r = *(src++);
+
+                        *(dst++) = (byte)b;
+                        *(dst++) = (byte)g;
+                        *(dst++) = (byte)r;
+                    }
+                }
+            }
+        }
 
         //3) Tornar a Imagem Preto e Branco; 
+        public static void pretoBranco(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Obtém a cor do pixel
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+
+                    // Calcula o tom de cinza (média dos valores R, G, B)
+                    int gray = (cor.R + cor.G + cor.B) / 3;
+
+                    // Define preto ou branco dependendo do valor de cinza
+                    Color newColor = gray < 128 ? Color.Black : Color.White;
+
+                    imageBitmapDest.SetPixel(x, y, newColor);
+                }
+            }
+        }
+
+
         //4) Faça a rotação 90º; 
+        public static void rotacao90(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Gira 90 graus (sentido horário)
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+                    imageBitmapDest.SetPixel(height - y - 1, x, cor);
+                }
+            }
+        }
+
         //5) Inverta os canais R(vermelho) com B(azul). 
+        public static void inverterCanaisRBeB(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Obtém a cor original do pixel
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+
+                    // Troca os canais R e B
+                    Color newColor = Color.FromArgb(cor.A, cor.B, cor.G, cor.R);
+
+                    imageBitmapDest.SetPixel(x, y, newColor);
+                }
+            }
+        }
+
         //6) Faça o espelho diagonal principal.Exemplo: 
+        public static void espelhoDiagonalPrincipal(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    // Reflete em torno da diagonal principal
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+                    imageBitmapDest.SetPixel(y, x, cor);
+                }
+            }
+        }
 
     }
 
