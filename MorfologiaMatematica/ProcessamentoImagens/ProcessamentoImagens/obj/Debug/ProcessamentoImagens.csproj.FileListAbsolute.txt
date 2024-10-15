@@ -27,3 +27,14 @@ C:\Users\danie\OneDrive\Desktop\TP\ImageProcessing\MorfologiaMatematica\Processa
 C:\Users\danie\OneDrive\Desktop\TP\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\bin\Debug\ProcessamentoImagens.exe.config
 C:\Users\danie\OneDrive\Desktop\TP\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\bin\Debug\ProcessamentoImagens.exe
 C:\Users\danie\OneDrive\Desktop\TP\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\bin\Debug\ProcessamentoImagens.pdb
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\bin\Debug\ProcessamentoImagens.exe.config
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\bin\Debug\ProcessamentoImagens.exe
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\bin\Debug\ProcessamentoImagens.pdb
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.AssemblyReference.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.SuggestedBindingRedirects.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.frmPrincipal.resources
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.Properties.Resources.resources
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.GenerateResource.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.csproj.CoreCompileInputs.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.exe
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\ProcessamentoImagens\ProcessamentoImagens\obj\Debug\ProcessamentoImagens.pdb
