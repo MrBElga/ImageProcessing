@@ -92,11 +92,30 @@ namespace ProcessamentoImagens
            
             Bitmap imgDest = new Bitmap(image);
             imageBitmap = (Bitmap)image;
-            Bitmap imageDest = Filtros.Erosao(imageBitmap);
+            int tamX = 3, tamY = 3;
+            int[] origem = new int[2];
+            origem[0] = 1;
+            origem[1] = 1;
+
+            int[,] mascara = new int[tamX, tamY];
+            // Defining the mask
+            mascara[0, 0] = 0; // Top left
+            mascara[0, 1] = 1; // Top center
+            mascara[0, 2] = 0; // Top right
+
+            mascara[1, 0] = 1; // Middle left
+            mascara[1, 1] = 1; // Middle center
+            mascara[1, 2] = 1; // Middle right
+
+            mascara[2, 0] = 0; // Bottom left
+            mascara[2, 1] = 1; // Bottom center
+            mascara[2, 2] = 0; // Bottom right
+
+            Bitmap imageDest = Filtros.Erosao(imageBitmap, mascara, tamX, tamY, origem);
             pictBoxImg2.Image = imageDest;
             try
             {
-                imageDest.Save("caminho_para_imagem_resultado2.Png", ImageFormat.Png);
+                imageDest.Save("caminho_para_imagem_resultado2.png", ImageFormat.Png);
             }
             catch (ExternalException ex)
             {

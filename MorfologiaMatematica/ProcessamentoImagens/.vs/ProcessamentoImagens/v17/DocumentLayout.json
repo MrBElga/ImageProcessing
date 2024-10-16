@@ -7,16 +7,12 @@
       "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|solutionrelative:processamentoimagens\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{62FFB5F4-39D7-491B-B53A-8266E2053D1B}|ProcessamentoImagens\\ProcessamentoImagens.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\processamentoimagens\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,17 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "frmPrincipal.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\frmPrincipal.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.cs",
               "RelativeToolTip": "ProcessamentoImagens\\frmPrincipal.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAcwDwAAABWAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAmwHUAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-30T23:04:01.177Z",
               "IsPinned": true,
@@ -52,20 +48,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "frmPrincipal.designer.cs",
-              "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.designer.cs",
-              "RelativeDocumentMoniker": "ProcessamentoImagens\\frmPrincipal.designer.cs",
-              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.designer.cs",
-              "RelativeToolTip": "ProcessamentoImagens\\frmPrincipal.designer.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAWwCAAAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T20:29:10.693Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\Program.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\Program.cs",
@@ -78,7 +61,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "frmPrincipal.cs [Design]",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\frmPrincipal.cs",
               "RelativeDocumentMoniker": "ProcessamentoImagens\\frmPrincipal.cs",
@@ -96,7 +79,7 @@
               "RelativeDocumentMoniker": "ProcessamentoImagens\\Filtros.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\TP\\ImageProcessing\\MorfologiaMatematica\\ProcessamentoImagens\\ProcessamentoImagens\\Filtros.cs",
               "RelativeToolTip": "ProcessamentoImagens\\Filtros.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAYwCQAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwHIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-30T22:53:25.717Z",
               "EditorCaption": ""
