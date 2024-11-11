@@ -1,0 +1,20 @@
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.exe.config
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.exe
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.pdb
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.AssemblyReference.cache
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.frmPrincipal.resources
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.Properties.Resources.resources
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.GenerateResource.cache
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.CoreCompileInputs.cache
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.exe
+C:\Chico\Aulas FIPP - 2o. Semestre 2024_\Aulas\TTC I\Testes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.pdb
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.exe.config
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.exe
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.pdb
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.AssemblyReference.cache
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.frmPrincipal.resources
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.Properties.Resources.resources
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.GenerateResource.cache
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.CoreCompileInputs.cache
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.exe
+D:\__correcoes\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.pdb
