@@ -28,3 +28,13 @@ C:\Users\heito\OneDrive\Área de Trabalho\ReconhecimentoPlacasCarro\ProjEncontra
 C:\Users\heito\OneDrive\Área de Trabalho\ReconhecimentoPlacasCarro\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.CoreCompileInputs.cache
 C:\Users\heito\OneDrive\Área de Trabalho\ReconhecimentoPlacasCarro\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.exe
 C:\Users\heito\OneDrive\Área de Trabalho\ReconhecimentoPlacasCarro\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.pdb
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.exe.config
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.exe
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\bin\Debug\ProjEncontraPlaca.pdb
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csprojAssemblyReference.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.frmPrincipal.resources
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.Properties.Resources.resources
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.GenerateResource.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.csproj.CoreCompileInputs.cache
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.exe
+C:\Users\Aluno\Desktop\ImageProcessing\MorfologiaMatematica\encontraPlacas\ProjEncontraPlaca\ProjEncontraPlaca\obj\Debug\ProjEncontraPlaca.pdb
