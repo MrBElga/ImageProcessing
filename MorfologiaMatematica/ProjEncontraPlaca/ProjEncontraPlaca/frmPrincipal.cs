@@ -36,6 +36,7 @@ namespace ProjEncontraPlaca
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             pictBoxImg.Image = null;
+            textBox1.Text = "";
         }
 
         private void btnOTSU_Click(object sender, EventArgs e)
@@ -61,6 +62,7 @@ namespace ProjEncontraPlaca
         {
             ClassificacaoCaracteres cl_numeros = new ClassificacaoCaracteres(30, 40, 1, 'S');
             ClassificacaoCaracteres cl_letras = new ClassificacaoCaracteres(30, 40, 2, 'S');
+
 
 
 

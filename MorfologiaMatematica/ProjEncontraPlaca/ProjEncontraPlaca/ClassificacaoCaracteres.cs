@@ -91,7 +91,7 @@ namespace ProjEncontraPlaca
             }
         }
 
-        public Bitmap segmentaRoI(Bitmap imageBitmap, int x, int y, int w, int h)
+        public static Bitmap segmentaRoI(Bitmap imageBitmap, int x, int y, int w, int h)
         {
             Bitmap img_dig = new Bitmap(w, h);
             int cor;
