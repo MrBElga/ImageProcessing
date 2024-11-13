@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Runtime.CompilerServices;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ProjEncontraPlaca
 {
-    class Filtros
+    internal class Filtros
     {
         private static void segmenta8(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, Point ini, List<Point> listaPini, List<Point> listaPfim, Color cor_pintar)
         {
@@ -105,9 +100,8 @@ namespace ProjEncontraPlaca
                         }
                     }
                 }
-
             }
-            
+
             if (menor.X > 0)
                 menor.X--;
             if (maior.X < imageBitmapSrc.Width - 1)
@@ -158,7 +152,8 @@ namespace ProjEncontraPlaca
             }
         }
 
-        private static void reconheceDigito(Bitmap imageBitmapDest, Point inicio, Point fim, ClassificacaoCaracteres cl_numeros, ClassificacaoCaracteres cl_letras){
+        private static void reconheceDigito(Bitmap imageBitmapDest, Point inicio, Point fim, ClassificacaoCaracteres cl_numeros, ClassificacaoCaracteres cl_letras)
+        {
             int x, y, w, h;
             x = inicio.X;
             y = inicio.Y;
@@ -168,9 +163,9 @@ namespace ProjEncontraPlaca
             Bitmap img_dig = new Bitmap(img.Width, img.Height);
             Filtros.threshold(img, img_dig);
             String transicao;
-            
+
             transicao = cl_letras.retornaTransicaoHorizontal(img_dig);
-            Console.WriteLine(cl_letras.reconheceCaractereTransicao_2pixels(transicao)+"  -  "+cl_numeros.reconheceCaractereTransicao_2pixels(transicao));
+            Console.WriteLine(cl_letras.reconheceCaractereTransicao_2pixels(transicao) + "  -  " + cl_numeros.reconheceCaractereTransicao_2pixels(transicao));
         }
 
         //----------------
@@ -188,13 +183,8 @@ namespace ProjEncontraPlaca
             int otsuThreshold = otsu.getOtsuThreshold((Bitmap)imageBitmapDest);
             otsu.threshold(imageBitmapDest, otsuThreshold);
 
-
             Bitmap imageBitmap = (Bitmap)imageBitmapDest.Clone();
             Filtros.segmentar8conectado(imageBitmap, imageBitmapDest, listaPini, listaPfim);
-            //pictBoxImg.Image = imgDest;
-
-
-            //
             int altura, largura;
             List<Point> _listaPini = new List<Point>();
             List<Point> _listaPfim = new List<Point>();
@@ -208,7 +198,7 @@ namespace ProjEncontraPlaca
                     _listaPini.Add(listaPini[i]);
                     _listaPfim.Add(listaPfim[i]);
                     Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
-                    //Fazer um metodo onde cada vez que for percorrer uma imagem ele tenta reconhecer o numero ou caracter
+
                     Filtros.reconheceDigito(imageBitmapDest, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
                 }
             }
@@ -446,7 +436,6 @@ namespace ProjEncontraPlaca
             {
                 for (int x = 0; x < width; x++)
                 {
-                    //obtendo a cor do pixel
                     Color cor = imageBitmapSrc.GetPixel(x, y);
 
                     r = cor.R;
@@ -459,20 +448,18 @@ namespace ProjEncontraPlaca
                     else
                         gs = 0;
 
-                    //nova cor
                     Color newcolor = Color.FromArgb(gs, gs, gs);
                     imageBitmapDest.SetPixel(x, y, newcolor);
                 }
             }
         }
+
         public static Bitmap Dilatacao(Bitmap imageSrc, int[,] mascara, int tamX, int tamY, int[] origem)
         {
             Bitmap imageDest = (Bitmap)imageSrc.Clone();
 
             int width = imageSrc.Width;
             int height = imageSrc.Height;
-            //mascara do tamanho generico
-            //faz a mascara
             int mat = mascara.Length;
             Console.WriteLine(mat);
             for (int x = tamX; x < width - tamX; x++)
@@ -482,40 +469,14 @@ namespace ProjEncontraPlaca
                     int R = imageSrc.GetPixel(x, y).R;
                     if (R < 128)
                     {
-                        //mascara
-                        //0 eh o preto
-                        //{1,1,1}
-                        //{1,0,1}
-                        //{1,1,1}
-                        /*
-                         *caso n generico
-                        if(imageSrc.GetPixel(x , y).R == 0)
-                        {
-                            imageDest.SetPixel(x - 1, y, Color.Black);
-                            imageDest.SetPixel(x + 1, y, Color.Black);
-                            imageDest.SetPixel(x, y - 1, Color.Black);
-                            imageDest.SetPixel(x, y + 1, Color.Black);
-                            imageDest.SetPixel(x+1, y - 1, Color.Black);
-                            imageDest.SetPixel(x + 1, y + 1, Color.Black); 
-                            imageDest.SetPixel(x - 1, y - 1, Color.Black);
-                            imageDest.SetPixel(x - 1, y + 1, Color.Black);
-                        }
-                        */
                         for (int j = 0; j < tamX; j++)
                         {
                             for (int i = 0; i < tamY; i++)
                             {
-                                //mascara
-                                //1 eh o preto
-                                //{0,1,0}
-                                //{1,1,1}
-                                //{0,1,0}
                                 if (mascara[i, j] != 0)
                                 {
                                     imageDest.SetPixel(x - origem[0] + j, y - origem[1] + i, Color.Black);
                                 }
-
-
                             }
                         }
                     }
@@ -538,19 +499,12 @@ namespace ProjEncontraPlaca
                     if (imageSrc.GetPixel(x, y).R < 128)
                     {
                         bool flag = false;
-
-                        //mascara
-                        //1 eh o preto
-                        //{0,1,0}
-                        //{1,1,1}
-                        //{0,1,0}
                         for (int i = 0; i < tamX && !flag; i++)
                         {
                             for (int j = 0; j < tamY && !flag; j++)
                             {
                                 if (mascara[i, j] != 0 && !(i == origem[0] && j == origem[1]))
                                 {
-                                    //tem  vizinhos brancos
                                     if (imageSrc.GetPixel(x - origem[0] + i, y - origem[1] + j).R > 128)
                                     {
                                         flag = true;
@@ -568,5 +522,4 @@ namespace ProjEncontraPlaca
             return imageDest;
         }
     }
-
 }

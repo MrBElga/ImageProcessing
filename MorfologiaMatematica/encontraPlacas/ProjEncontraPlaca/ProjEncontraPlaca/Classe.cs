@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjEncontraPlaca
+﻿namespace ProjEncontraPlaca
 {
-    class Classe
+    internal class Classe
     {
         public char caractere { get; set; }
         public int n_dim { get; set; }
@@ -22,6 +16,5 @@ namespace ProjEncontraPlaca
             for (int i = 0; i < n_dim; i++)
                 NOC[i] = new NaoOcorre();
         }
-
     }
 }

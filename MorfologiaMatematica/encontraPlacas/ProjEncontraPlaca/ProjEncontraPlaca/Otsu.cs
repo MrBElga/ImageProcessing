@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace ProjEncontraPlaca
 {
-    class Otsu
+    internal class Otsu
     {
         //função é usada para calcular os valores q na equação
         private float Px(int ini, int fim, int[] hist)
@@ -35,7 +31,7 @@ namespace ProjEncontraPlaca
         private int findMax(float[] vec, int n)
         {
             float maior = 0;
-            int pos=0;
+            int pos = 0;
             int i;
 
             for (i = 1; i < n - 1; i++)
@@ -50,7 +46,7 @@ namespace ProjEncontraPlaca
         }
 
         //calcula o histograma da imagem
-        unsafe private void getHistogram(byte* p, int width, int height, int stride, int[] hist)
+        private unsafe void getHistogram(byte* p, int width, int height, int stride, int[] hist)
         {
             hist.Initialize();
             for (int i = 0; i < height; i++)
@@ -65,13 +61,13 @@ namespace ProjEncontraPlaca
         //encontra threshold OTSU
         public int getOtsuThreshold(Bitmap bmp)
         {
-            byte t=0;
-	        float[] vet=new float[256];
-            int[] hist=new int[256];
+            byte t = 0;
+            float[] vet = new float[256];
+            int[] hist = new int[256];
             vet.Initialize();
 
-	        float p1,p2,p12;
-	        int k;
+            float p1, p2, p12;
+            int k;
 
             BitmapData bmData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
             ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
@@ -79,7 +75,7 @@ namespace ProjEncontraPlaca
             {
                 byte* p = (byte*)(void*)bmData.Scan0.ToPointer();
 
-                getHistogram(p,bmp.Width,bmp.Height,bmData.Stride, hist);
+                getHistogram(p, bmp.Width, bmp.Height, bmData.Stride, hist);
 
                 //percorrer todos os valores t possíveis e maximiza a variação entre as classes
                 for (k = 1; k < 255; k++)
@@ -87,9 +83,9 @@ namespace ProjEncontraPlaca
                     p1 = Px(0, k, hist);
                     p2 = Px(k + 1, 255, hist);
                     p12 = p1 * p2;
-                    if (p12 == 0) 
+                    if (p12 == 0)
                         p12 = 1;
-                    float diff=(Mx(0, k, hist) * p2) - (Mx(k + 1, 255, hist) * p1);
+                    float diff = (Mx(0, k, hist) * p2) - (Mx(k + 1, 255, hist) * p1);
                     vet[k] = (float)diff * diff / p12;
                 }
             }
@@ -120,23 +116,23 @@ namespace ProjEncontraPlaca
         }
 
         public void threshold(Bitmap bmp, int thresh)
-        { 
+        {
             BitmapData bmData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
             ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
             unsafe
             {
                 byte* p = (byte*)(void*)bmData.Scan0.ToPointer();
-                int h= bmp.Height;
+                int h = bmp.Height;
                 int w = bmp.Width;
                 int ws = bmData.Stride;
 
                 for (int i = 0; i < h; i++)
                 {
-                    byte *row=&p[i*ws];
+                    byte* row = &p[i * ws];
                     for (int j = 0; j < w * 3; j += 3)
                     {
                         row[j] = (byte)((row[j] > (byte)thresh) ? 255 : 0);
-                        row[j+1] = (byte)((row[j+1] > (byte)thresh) ? 255 : 0);
+                        row[j + 1] = (byte)((row[j + 1] > (byte)thresh) ? 255 : 0);
                         row[j + 2] = (byte)((row[j + 2] > (byte)thresh) ? 255 : 0);
                     }
                 }
@@ -145,4 +141,3 @@ namespace ProjEncontraPlaca
         }
     }
 }
-

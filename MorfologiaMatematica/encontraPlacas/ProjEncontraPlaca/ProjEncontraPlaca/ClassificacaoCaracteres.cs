@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 
 namespace ProjEncontraPlaca
 {
-    class ClassificacaoCaracteres
+    internal class ClassificacaoCaracteres
     {
         private int altura;
         private int largura;
@@ -121,7 +117,7 @@ namespace ProjEncontraPlaca
                     {
                         if (transicao[j] == '0' && transicao[j + 1] == '0' && classes[pos].NOC[j]._00 == 1)
                         {
-                            classes[pos].NOC[j]._00 = 0; //restricoes: 0=ocorre, 1=nao ocorre
+                            classes[pos].NOC[j]._00 = 0;
                             classes[pos].n_restricoes--;
                         }
                         if (transicao[j] == '0' && transicao[j + 1] == '1' && classes[pos].NOC[j]._01 == 1)
@@ -155,7 +151,6 @@ namespace ProjEncontraPlaca
         {
             int[] cont_NOC = new int[n_classes];
             char caractere = ' ';
-
 
             for (int i = 0; i < n_classes; i++)
             {

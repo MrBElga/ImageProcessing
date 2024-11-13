@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjEncontraPlaca
@@ -15,6 +9,7 @@ namespace ProjEncontraPlaca
         private Image image;
         private Bitmap imageBitmap;
         private Otsu otsu;
+
         public frmPrincipal()
         {
             InitializeComponent();
@@ -63,9 +58,6 @@ namespace ProjEncontraPlaca
             ClassificacaoCaracteres cl_numeros = new ClassificacaoCaracteres(30, 40, 1, 'S');
             ClassificacaoCaracteres cl_letras = new ClassificacaoCaracteres(30, 40, 2, 'S');
 
-
-
-
             //testando o reconhecimento dos caracteres
             Image img = Image.FromFile(@"..\..\..\H.png");
             Bitmap img_dig = new Bitmap(img.Width, img.Height);
@@ -73,8 +65,6 @@ namespace ProjEncontraPlaca
 
             String transicao = cl_letras.retornaTransicaoHorizontal(img_dig);
             Console.WriteLine(cl_letras.reconheceCaractereTransicao_2pixels(transicao));
-
-
 
             //testando o reconhecimento dos numeros
             img = Image.FromFile(@"..\..\..\7.png");

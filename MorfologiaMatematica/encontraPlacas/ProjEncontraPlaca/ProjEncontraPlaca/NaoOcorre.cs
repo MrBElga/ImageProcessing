@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjEncontraPlaca
+﻿namespace ProjEncontraPlaca
 {
-    class NaoOcorre
+    internal class NaoOcorre
     {
         public int _00 { get; set; }
         public int _01 { get; set; }
