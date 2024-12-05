@@ -273,7 +273,8 @@ namespace ProjEncontraPlaca
 
                 placaRecortada = RecortarImagem(imageRecortadaitmap, placaComMargem);
                 otsu = new Otsu();
-
+                listaPini = new List<Point>();
+                listaPfim = new List<Point>();
                 // Aplica Otsu
                 otsu.Convert2GrayScaleFast(placaRecortada);
                 otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
@@ -289,12 +290,8 @@ namespace ProjEncontraPlaca
                     // acha a placa com base no tam dos caracteres
                     if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
                     {
-                        Rectangle caractere = new Rectangle(listaPini[i].X, listaPini[i].Y, largura, altura);
-                        possiveisPlacas.Add(caractere);
-
-                        // dsenha
-                        Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
-                        Filtros.reconheceDigito(imageBitmapDest, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
+                        Filtros.desenhaRetangulo(placaRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+                        Filtros.reconheceDigito(placaRecortada, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
                     }
                 }
 
