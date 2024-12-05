@@ -140,34 +140,17 @@ namespace ProjEncontraPlaca
 
         private static void desenhaRetangulo(Bitmap imageBitmapDest, Point menor, Point maior, Color cor)
         {
-            // Garantir que as coordenadas estejam dentro dos limites da imagem
-            int width = imageBitmapDest.Width;
-            int height = imageBitmapDest.Height;
-
-            menor.X = Math.Max(0, Math.Min(menor.X, width - 1));
-            menor.Y = Math.Max(0, Math.Min(menor.Y, height - 1));
-            maior.X = Math.Max(0, Math.Min(maior.X, width - 1));
-            maior.Y = Math.Max(0, Math.Min(maior.Y, height - 1));
-
-            // Desenhar linhas horizontais (topo e base do retângulo)
             for (int x = menor.X; x <= maior.X; x++)
             {
-                if (menor.Y >= 0 && menor.Y < height)
-                    imageBitmapDest.SetPixel(x, menor.Y, cor);
-                if (maior.Y >= 0 && maior.Y < height)
-                    imageBitmapDest.SetPixel(x, maior.Y, cor);
+                imageBitmapDest.SetPixel(x, menor.Y, cor);
+                imageBitmapDest.SetPixel(x, maior.Y, cor);
             }
-
-            // Desenhar linhas verticais (esquerda e direita do retângulo)
             for (int y = menor.Y; y <= maior.Y; y++)
             {
-                if (menor.X >= 0 && menor.X < width)
-                    imageBitmapDest.SetPixel(menor.X, y, cor);
-                if (maior.X >= 0 && maior.X < width)
-                    imageBitmapDest.SetPixel(maior.X, y, cor);
+                imageBitmapDest.SetPixel(menor.X, y, cor);
+                imageBitmapDest.SetPixel(maior.X, y, cor);
             }
         }
-
 
         private static void reconheceDigito(Bitmap imageBitmapDest, Point inicio, Point fim, ClassificacaoCaracteres cl_numeros, ClassificacaoCaracteres cl_letras)
         {
@@ -202,15 +185,9 @@ namespace ProjEncontraPlaca
 
             Bitmap imageBitmap = (Bitmap)imageBitmapDest.Clone();
             Filtros.segmentar8conectado(imageBitmap, imageBitmapDest, listaPini, listaPfim);
-            //se a lista ter algo ele recorta a placa na imagem original
-
-         
-   
-
             int altura, largura;
             List<Point> _listaPini = new List<Point>();
             List<Point> _listaPfim = new List<Point>();
-            int aux=0;
             for (int i = 0; i < listaPini.Count; i++)
             {
                 altura = listaPfim[i].Y - listaPini[i].Y;
@@ -220,68 +197,12 @@ namespace ProjEncontraPlaca
                 {
                     _listaPini.Add(listaPini[i]);
                     _listaPfim.Add(listaPfim[i]);
-                    aux++;
+                    Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+
+                    Filtros.reconheceDigito(imageBitmapDest, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
                 }
             }
-            // Verifica se existem regiões válidas
-            if (_listaPini.Count > 0)
-            {
-                // Calcula os limites gerais das regiões válidas
-                Point menor = _listaPini[0];
-                Point maior = _listaPfim[0];
-
-                for (int i = 1; i < _listaPini.Count; i++)
-                {
-                    menor.X = Math.Min(menor.X, _listaPini[i].X);
-                    menor.Y = Math.Min(menor.Y, _listaPini[i].Y);
-                    maior.X = Math.Max(maior.X, _listaPfim[i].X);
-                    maior.Y = Math.Max(maior.Y, _listaPfim[i].Y);
-                }
-
-                // Expande os limites com margens
-                int margem = 20;
-                menor.X = Math.Max(0, menor.X - margem);
-                menor.Y = Math.Max(0, menor.Y - margem);
-                maior.X = Math.Min(imageBitmapSrc.Width - 1, maior.X + margem);
-                maior.Y = Math.Min(imageBitmapSrc.Height - 1, maior.Y + margem);
-
-                // Calcula largura e altura finais
-                int larguraFinal = maior.X - menor.X + 1;
-                int alturaFinal = maior.Y - menor.Y + 1;
-
-                // Recorta a região na imagem original
-                Bitmap regiaoRecortada = ClassificacaoCaracteres.segmentaRoI(imageBitmapSrc, menor.X, menor.Y, larguraFinal, alturaFinal);
-    
-                // Reaplica Otsu na região recortada, se necessário
-                otsu.Convert2GrayScaleFast(regiaoRecortada);
-                otsuThreshold = otsu.getOtsuThreshold(regiaoRecortada);
-                otsu.threshold(regiaoRecortada, otsuThreshold);
-                altura =0;
-                largura=0;
-                _listaPini = new List<Point>();
-                _listaPfim = new List<Point>();
-                aux = 0;
-                for (int i = 0; i < listaPini.Count; i++)
-                {
-                    altura = listaPfim[i].Y - listaPini[i].Y;
-                    largura = listaPfim[i].X - listaPini[i].X;
-
-                    if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
-                    {
-                        _listaPini.Add(listaPini[i]);
-                        _listaPfim.Add(listaPfim[i]);
-                        Filtros.desenhaRetangulo(regiaoRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
-
-                        Filtros.reconheceDigito(regiaoRecortada, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
-                        aux++;
-                    }
-                }
-            }
-        
-
-    }
-
-  
+        }
 
         //sem acesso direto a memoria
         public static void threshold(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
