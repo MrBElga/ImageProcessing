@@ -46,12 +46,21 @@ namespace ProjEncontraPlaca
 
         private void btnSegmenta8_Click(object sender, EventArgs e)
         {
-            imageBitmap = (Bitmap)image.Clone();
-            Bitmap imgDest = (Bitmap)image.Clone();
-            Filtros.encontra_placa(imageBitmap, imgDest);
+            try
+            {
+                // Clona a imagem original
+                imageBitmap = (Bitmap)image.Clone();
+                Bitmap imgDest = (Bitmap)image.Clone();
 
-            pictBoxImg.Image = imgDest;
+                // Processa a placa e exibe o recorte na tela
+                Filtros.encontra_placa(imageBitmap, imgDest, pictBoxImg);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao processar a imagem: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnReconheDigito_Click(object sender, EventArgs e)
         {

@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|c:\\users\\danie\\onedrive\\desktop\\imageprocessing\\morfologiamatematica\\encontraplacas\\projencontraplaca\\projencontraplaca\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\naoocorre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\naoocorre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\classe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\classe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\otsu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\otsu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,22 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|c:\\users\\danie\\onedrive\\desktop\\imageprocessing\\morfologiamatematica\\encontraplacas\\projencontraplaca\\projencontraplaca\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\filtros.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\naoocorre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\naoocorre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\classe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|solutionrelative:projencontraplaca\\classe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D5CBCDBE-FAE2-455E-9FEB-8FEF43472F9A}|ProjEncontraPlaca\\ProjEncontraPlaca.csproj|C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\projencontraplaca\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -42,28 +42,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Program.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\Program.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Program.cs",
               "RelativeToolTip": "ProjEncontraPlaca\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.419Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "NaoOcorre.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\NaoOcorre.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\NaoOcorre.cs",
@@ -71,11 +67,12 @@
               "RelativeToolTip": "ProjEncontraPlaca\\NaoOcorre.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.451Z"
+              "WhenOpened": "2024-12-05T14:59:05.451Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "Classe.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Classe.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\Classe.cs",
@@ -83,56 +80,57 @@
               "RelativeToolTip": "ProjEncontraPlaca\\Classe.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.452Z"
+              "WhenOpened": "2024-12-05T14:59:05.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Otsu.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Otsu.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\Otsu.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Otsu.cs",
               "RelativeToolTip": "ProjEncontraPlaca\\Otsu.cs",
-              "ViewState": "AgIAAHUAAAAAAAAAAAD4v4gAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAUwI4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.454Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "ClassificacaoCaracteres.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\ClassificacaoCaracteres.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\ClassificacaoCaracteres.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\ClassificacaoCaracteres.cs",
               "RelativeToolTip": "ProjEncontraPlaca\\ClassificacaoCaracteres.cs",
-              "ViewState": "AgIAAMYAAAAAAAAAAAAwwOgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAALkAAAAAAAAAAAAiwOgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.455Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "frmPrincipal.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\frmPrincipal.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\frmPrincipal.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\frmPrincipal.cs",
               "RelativeToolTip": "ProjEncontraPlaca\\frmPrincipal.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAwFUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACgAAAAAAAAAAAAUwFYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.456Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "Filtros.cs",
               "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Filtros.cs",
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\Filtros.cs",
-              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Filtros.cs",
-              "RelativeToolTip": "ProjEncontraPlaca\\Filtros.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Filtros.cs*",
+              "RelativeToolTip": "ProjEncontraPlaca\\Filtros.cs*",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAuwOYAAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.547Z",
               "EditorCaption": ""

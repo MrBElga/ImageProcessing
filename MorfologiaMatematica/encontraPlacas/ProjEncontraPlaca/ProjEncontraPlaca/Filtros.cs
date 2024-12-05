@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ProjEncontraPlaca
 {
@@ -169,7 +171,8 @@ namespace ProjEncontraPlaca
         }
 
         //----------------
-        public static void encontra_placa(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
+
+        public static void encontra_placa(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, PictureBox pictBoxImg)
         {
             ClassificacaoCaracteres cl_numeros = new ClassificacaoCaracteres(30, 40, 1, 'S');
             ClassificacaoCaracteres cl_letras = new ClassificacaoCaracteres(30, 40, 2, 'S');
@@ -179,29 +182,174 @@ namespace ProjEncontraPlaca
 
             Otsu otsu = new Otsu();
 
+            // Aplica Otsu
             otsu.Convert2GrayScaleFast(imageBitmapDest);
             int otsuThreshold = otsu.getOtsuThreshold((Bitmap)imageBitmapDest);
             otsu.threshold(imageBitmapDest, otsuThreshold);
-
+            // aq segmenta a imagem
             Bitmap imageBitmap = (Bitmap)imageBitmapDest.Clone();
             Filtros.segmentar8conectado(imageBitmap, imageBitmapDest, listaPini, listaPfim);
+
+            // lista para achar a placa
+            List<Rectangle> possiveisPlacas = new List<Rectangle>();
             int altura, largura;
-            List<Point> _listaPini = new List<Point>();
-            List<Point> _listaPfim = new List<Point>();
+
             for (int i = 0; i < listaPini.Count; i++)
             {
                 altura = listaPfim[i].Y - listaPini[i].Y;
                 largura = listaPfim[i].X - listaPini[i].X;
 
+                // acha a placa com base no tam dos caracteres
                 if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
                 {
-                    _listaPini.Add(listaPini[i]);
-                    _listaPfim.Add(listaPfim[i]);
-                    Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+                    Rectangle caractere = new Rectangle(listaPini[i].X, listaPini[i].Y, largura, altura);
+                    possiveisPlacas.Add(caractere);
 
-                    Filtros.reconheceDigito(imageBitmapDest, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
+                    // dsenha
+                    using (Graphics g = Graphics.FromImage(imageBitmapDest))
+                    {
+                        g.DrawRectangle(Pens.Red, caractere);
+                    }
                 }
             }
+
+
+
+            // mostra detecção inicial
+            pictBoxImg.Image = (Bitmap)imageBitmapDest.Clone();
+
+            // agrupa retangulos afim de achar a  placa
+            Rectangle areaPlaca = AgruparRetangulos(possiveisPlacas);
+
+            if (areaPlaca != Rectangle.Empty)
+            {
+                Bitmap imageRecortadaitmap = (Bitmap)imageBitmapSrc.Clone();
+                // recortando em volta
+                Rectangle placaComMargem = new Rectangle(
+                    Math.Max(0, areaPlaca.X - 10),
+                    Math.Max(0, areaPlaca.Y - 10),
+                    Math.Min(imageRecortadaitmap.Width - areaPlaca.X - 1, areaPlaca.Width + 20),
+                    Math.Min(imageRecortadaitmap.Height - areaPlaca.Y - 1, areaPlaca.Height + 10)
+                );
+
+                // recorta
+                Bitmap placaRecortada = RecortarImagem(imageRecortadaitmap, placaComMargem);
+
+                using (Graphics g = Graphics.FromImage(imageRecortadaitmap))
+                {
+                    g.DrawRectangle(Pens.Green, placaComMargem);
+                }
+
+                pictBoxImg.Image = placaRecortada;
+
+
+                List<Point> listaPini2 = new List<Point>();
+                List<Point> listaPfim2 = new List<Point>();
+
+                otsu = new Otsu();
+
+                // Aplica Otsu
+                otsu.Convert2GrayScaleFast(placaRecortada);
+                otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
+                otsu.threshold(placaRecortada, otsuThreshold);
+                // aq segmenta a imagem
+                Bitmap imageBitmap2 = (Bitmap)placaRecortada.Clone();
+                Filtros.segmentar8conectado(imageBitmap2, placaRecortada, listaPini, listaPfim);
+
+
+                for (int i = 0; i < listaPini.Count; i++)
+                {
+                    altura = listaPfim[i].Y - listaPini[i].Y;
+                    largura = listaPfim[i].X - listaPini[i].X;
+
+                    // acha a placa com base no tam dos caracteres
+                    if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
+                    {
+                        Rectangle caractere = new Rectangle(listaPini[i].X, listaPini[i].Y, largura, altura);
+                        possiveisPlacas.Add(caractere);
+
+                        // dsenha
+                        using (Graphics g = Graphics.FromImage(placaRecortada))
+                        {
+                            g.DrawRectangle(Pens.Red, caractere);
+                        }
+                    }
+                }
+            
+      
+                Bitmap imageBitmapR = (Bitmap)placaRecortada.Clone();
+                Filtros.segmentar8conectado(imageBitmapR, placaRecortada, listaPini2, listaPfim2);
+
+                altura = 0;
+                largura = 0;
+                List<Point> _listaPini = new List<Point>();
+                List<Point> _listaPfim = new List<Point>();
+
+                for (int i = 0; i < listaPini.Count; i++)
+                {
+                 
+                        altura = listaPfim[i].Y - listaPini[i].Y;
+                        largura = listaPfim[i].X - listaPini[i].X;
+
+                        if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
+                        {
+                            _listaPini.Add(listaPini[i]);
+                            _listaPfim.Add(listaPfim[i]);
+                            Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+
+                            Filtros.reconheceDigito(imageBitmapDest, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
+                        }
+                }
+                pictBoxImg.Image = placaRecortada;
+            }
+
+            else
+            {
+                // Nenhuma placa foi encontrada
+                Console.WriteLine("Nenhuma placa foi encontrada!");
+            }
+        }
+
+        private static Rectangle AgruparRetangulos(List<Rectangle> retangulos)
+        {
+            if (retangulos.Count == 0) return Rectangle.Empty;
+
+ 
+            retangulos.Sort((r1, r2) => r1.X.CompareTo(r2.X));
+
+            int toleranciaAlinhamento = 15; 
+            int toleranciaEspaco = 50; 
+            Rectangle bloco = retangulos[0];
+            int contagemCaracteres = 1;
+
+            foreach (var retangulo in retangulos.Skip(1))
+            {
+
+                if (Math.Abs(retangulo.Y - bloco.Y) <= toleranciaAlinhamento &&
+                    retangulo.X - (bloco.X + bloco.Width) <= toleranciaEspaco)
+                {
+                    bloco = Rectangle.Union(bloco, retangulo);
+                    contagemCaracteres++;
+                }
+            }
+
+            //considerei 5 pq pode ser q ele n conseguiu detectr os 7
+            if (contagemCaracteres >= 5)
+            {
+                Console.WriteLine($"Placa detectada com {contagemCaracteres} caracteres.");
+                return bloco;
+            }
+            else
+            {
+                Console.WriteLine("Agrupamento não contém caracteres suficientes para uma placa.");
+                return Rectangle.Empty;
+            }
+        }
+
+
+        private static Bitmap RecortarImagem(Bitmap imagem, Rectangle area)
+        {
+            return imagem.Clone(area, imagem.PixelFormat);
         }
 
         //sem acesso direto a memoria
