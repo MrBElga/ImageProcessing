@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace ProjEncontraPlaca
@@ -98,19 +99,17 @@ namespace ProjEncontraPlaca
 
         public void Convert2GrayScaleFast(Bitmap bmp)
         {
-            BitmapData bmData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
-                    ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            BitmapData bmData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            Int32 gs;
+
             unsafe
             {
-                byte* p = (byte*)(void*)bmData.Scan0.ToPointer();
-                int stopAddress = (int)p + bmData.Stride * bmData.Height;
-                while ((int)p != stopAddress)
-                {
-                    p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
-                    p[1] = p[0];
-                    p[2] = p[0];
-                    p += 3;
-                }
+                byte* p = (byte*)bmData.Scan0.ToPointer();
+                int padding = bmData.Stride - (bmData.Width * 3);
+                gs = (Int32)(p[2] * 0.2990 + p[1] * 0.5870 + p[0] * 0.1140);
+                *(p++) = (byte)gs;
+                *(p++) = (byte)gs;
+                *(p++) = (byte)gs;
             }
             bmp.UnlockBits(bmData);
         }

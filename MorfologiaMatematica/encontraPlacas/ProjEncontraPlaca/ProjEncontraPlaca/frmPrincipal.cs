@@ -43,7 +43,6 @@ namespace ProjEncontraPlaca
             textBox1.Text = otsuThreshold.ToString();
             pictBoxImg.Image = temp;
         }
-
         private void btnSegmenta8_Click(object sender, EventArgs e)
         {
             try
