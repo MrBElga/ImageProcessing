@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ProjEncontraPlaca
 {
@@ -113,7 +112,7 @@ namespace ProjEncontraPlaca
                 menor.Y--;
             if (maior.Y < imageBitmapSrc.Height - 1)
                 maior.Y++;
-           // desenhaRetangulo(imageBitmapDest, menor, maior, Color.FromArgb(255, 0, 0));
+            // desenhaRetangulo(imageBitmapDest, menor, maior, Color.FromArgb(255, 0, 0));
             listaPini.Add(menor);
             listaPfim.Add(maior);
         }
@@ -193,18 +192,120 @@ namespace ProjEncontraPlaca
 
             // lista para achar a placa
             List<Rectangle> possiveisPlacas = new List<Rectangle>();
-            int altura=0, largura=0, alturaPlaca, larguraPlaca;
+            int altura = 0, largura = 0;
             Desenha(imageBitmapDest, listaPini, listaPfim, altura, largura, possiveisPlacas);
 
             // mostra detecção inicial
             pictBoxImg.Image = (Bitmap)imageBitmapDest.Clone();
 
             // agrupa retangulos afim de achar a  placa
-            Rectangle areaPlaca = AgruparRetangulos(possiveisPlacas, imageBitmapDest);
+            var (areaPlaca, contagemRetangulos) = AgruparRetangulos(possiveisPlacas, imageBitmapDest);
 
-            if (areaPlaca != Rectangle.Empty)
+            if (contagemRetangulos > 0 && contagemRetangulos < 5)
             {
+                Console.WriteLine("placa com menos de 4 digitos encontrada!");
+                Bitmap imageRecortadaitmap = (Bitmap)imageBitmapSrc.Clone();
+                areaPlaca = new Rectangle(
+                      Math.Max(0, areaPlaca.X - 166),
+                      Math.Max(0, areaPlaca.Y - 10),
+                      Math.Min(imageBitmapDest.Width - areaPlaca.X - 1, areaPlaca.Width + 180),
+                      Math.Min(imageBitmapDest.Height - areaPlaca.Y - 1, areaPlaca.Height + 10)
+                 );
+                Bitmap placaRecortada = (Bitmap)imageBitmapSrc.Clone();
 
+                pictBoxImg.Image = placaRecortada;
+
+                listaPini = new List<Point>();
+                listaPfim = new List<Point>();
+
+                otsu = new Otsu();
+
+                // Aplica Otsu
+                otsu.Convert2GrayScaleFast(placaRecortada);
+                otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
+                otsu.threshold(placaRecortada, otsuThreshold);
+
+                // Aplica erosão com máscara de 3x3
+                int[,] mascara = new int[3, 3] {
+                        { 0, 1, 0 },
+                        { 1, 1, 1 },
+                        { 0, 1, 0 }
+                    };
+                int[] origem = { 1, 1 };
+                Bitmap imageErodida = Filtros.Dilatacao(placaRecortada, mascara, 3, 3, origem);
+                Bitmap imageDilatada = Filtros.Erosao(imageErodida, mascara, 3, 3, origem);
+              
+              
+
+                // aq segmenta a imagem
+                Bitmap imageBitmap2 = (Bitmap)imageDilatada.Clone();
+                Filtros.segmentar8conectado(imageBitmap2, imageDilatada, listaPini, listaPfim);
+
+                Desenha(imageBitmapDest, listaPini, listaPfim, altura, largura, possiveisPlacas);
+
+                //pictBoxImg.Image = placaRecortada;
+                Bitmap imageBitmapR = (Bitmap)placaRecortada.Clone();
+                Filtros.segmentar8conectado(imageBitmapR, placaRecortada, listaPini, listaPfim);
+
+                altura = 0;
+                largura = 0;
+                List<Point> _listaPini = new List<Point>();
+                List<Point> _listaPfim = new List<Point>();
+
+                for (int i = 0; i < listaPini.Count; i++)
+                {
+                    altura = listaPfim[i].Y - listaPini[i].Y;
+                    largura = listaPfim[i].X - listaPini[i].X;
+
+                    if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
+                    {
+                        /*
+                        na parte comentada do metodo encontra_placa la na parte de baixo tem que fazer um if pra ver se os pontos X e Y do retangulo verde está dentro das coordenadas da placa que foi achada tendeu ? Assim arruma os Retangulos verdes que foi achado fora da placa
+                        larguraPlaca = imageRecortadaitmap.Width - areaPlaca.X - 1, areaPlaca.Width + 20;
+                        alturaPlaca = imageRecortadaitmap.Height - areaPlaca.Y - 1, areaPlaca.Height + 10;
+                        if (areaPlaca.X){
+                        */
+
+                        if (listaPini[i].X >= areaPlaca.X && listaPfim[i].X <= areaPlaca.X + areaPlaca.Width && listaPini[i].Y >= areaPlaca.Y && listaPfim[i].Y <= areaPlaca.Y + areaPlaca.Height)
+                        {
+                            // Desenha o retângulo verde na imagem (caractere detectado dentro da placa)
+                            Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+                            _listaPini.Add(listaPini[i]);
+                            _listaPfim.Add(listaPfim[i]);
+                        }
+                    }
+                }
+
+                placaRecortada = RecortarImagem(imageRecortadaitmap, areaPlaca);
+                otsu = new Otsu();
+                listaPini = new List<Point>();
+                listaPfim = new List<Point>();
+                // Aplica Otsu
+                otsu.Convert2GrayScaleFast(placaRecortada);
+                otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
+                otsu.threshold(placaRecortada, otsuThreshold);
+                // aq segmenta a imagem
+                imageBitmap2 = (Bitmap)placaRecortada.Clone();
+                Filtros.segmentar8conectado(imageBitmap2, placaRecortada, listaPini, listaPfim);
+                for (int i = 0; i < listaPini.Count; i++)
+                {
+                   
+                    altura = listaPfim[i].Y - listaPini[i].Y;
+                    largura = listaPfim[i].X - listaPini[i].X;
+
+                    // acha a placa com base no tam dos caracteres
+                    if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
+                    {
+                        Filtros.desenhaRetangulo(placaRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+                        Filtros.reconheceDigito(placaRecortada, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
+                    }
+                }
+
+                pictBoxImg.Image = placaRecortada;
+            }
+            else if (contagemRetangulos >= 5)
+            {
+                Console.WriteLine("placa com mais de 4 digitos encontrada!");
                 Bitmap imageRecortadaitmap = (Bitmap)imageBitmapSrc.Clone();
                 // recortando em volta
                 Rectangle placaComMargem = new Rectangle(
@@ -215,14 +316,13 @@ namespace ProjEncontraPlaca
                 );
 
                 // recorta
-                Bitmap placaRecortada = RecortarImagem(imageRecortadaitmap, placaComMargem);
-
+                // Bitmap placaRecortada = RecortarImagem(imageRecortadaitmap, placaComMargem);
+                Bitmap placaRecortada = (Bitmap)imageBitmapSrc.Clone();
 
                 pictBoxImg.Image = placaRecortada;
 
-
-               listaPini = new List<Point>();
-               listaPfim = new List<Point>();
+                listaPini = new List<Point>();
+                listaPfim = new List<Point>();
 
                 otsu = new Otsu();
 
@@ -247,13 +347,11 @@ namespace ProjEncontraPlaca
 
                 for (int i = 0; i < listaPini.Count; i++)
                 {
-
                     altura = listaPfim[i].Y - listaPini[i].Y;
                     largura = listaPfim[i].X - listaPini[i].X;
-                
+
                     if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
                     {
-
                         /*
                         na parte comentada do metodo encontra_placa la na parte de baixo tem que fazer um if pra ver se os pontos X e Y do retangulo verde está dentro das coordenadas da placa que foi achada tendeu ? Assim arruma os Retangulos verdes que foi achado fora da placa
                         larguraPlaca = imageRecortadaitmap.Width - areaPlaca.X - 1, areaPlaca.Width + 20;
@@ -263,7 +361,6 @@ namespace ProjEncontraPlaca
 
                         if (listaPini[i].X >= areaPlaca.X && listaPfim[i].X <= areaPlaca.X + areaPlaca.Width && listaPini[i].Y >= areaPlaca.Y && listaPfim[i].Y <= areaPlaca.Y + areaPlaca.Height)
                         {
-
                             // Desenha o retângulo verde na imagem (caractere detectado dentro da placa)
                             Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
                             _listaPini.Add(listaPini[i]);
@@ -298,7 +395,6 @@ namespace ProjEncontraPlaca
 
                 pictBoxImg.Image = placaRecortada;
             }
-
             else
             {
                 // Nenhuma placa foi encontrada
@@ -324,93 +420,80 @@ namespace ProjEncontraPlaca
                 }
             }
         }
+
         private static bool EhVerde(Color cor)
         {
-            // Definir as condições para diferentes tons de verde
-            if (cor.G > 100 && cor.G > cor.R + 20 && cor.G > cor.B + 20) // Verde mais saturado
+            //
+            if (cor.G > 100 && cor.G > cor.R + 20 && cor.G > cor.B + 20)
             {
                 return true;
             }
-            else if (cor.G > 80 && cor.G > cor.R + 10 && cor.G > cor.B + 10) // Verde intermediário
+            else if (cor.G > 80 && cor.G > cor.R + 10 && cor.G > cor.B + 10)
             {
                 return true;
             }
-            else if (cor.G > 60 && cor.G > cor.R && cor.G > cor.B) // Verde mais suave
+            else if (cor.G > 60 && cor.G > cor.R && cor.G > cor.B)
             {
                 return true;
             }
 
-            return false; 
+            return false;
         }
 
-        private static Rectangle AgruparRetangulos(List<Rectangle> retangulos, Bitmap image)
+        private static (Rectangle, int) AgruparRetangulos(List<Rectangle> retangulos, Bitmap image)
         {
             if (retangulos.Count != 0)
             {
                 int toleranciaEspaco = 500;
                 int toleranciaAlinhamento = 500;
-          
+
                 var retangulosVerde = new List<Rectangle>();
 
                 foreach (var retangulo in retangulos)
                 {
                     Color cor = ObterCorDoRetangulo(retangulo, image);
-
-                    // Verifica se o retângulo é verde
+                    //se vrd ele junta
                     if (EhVerde(cor))
                     {
                         retangulosVerde.Add(retangulo);
                     }
                 }
-
-                if (retangulosVerde.Count != 0 )
+                //se contagem de verdes for maior que 0 possivel placa
+                if (retangulosVerde.Count > 0)
                 {
-                    if (retangulosVerde.Count >= 3)
+                    //se tem pelo menos 3 ele tem uma placa (pode ser q recorte lugares errados)
+                    retangulosVerde.Sort((r1, r2) => r1.X.CompareTo(r2.X));
+                    Rectangle bloco = retangulosVerde[0];
+                    int contagemCaracteres = 1;
+                    //coonta caracteres e verifica a distancia de tolerancia e alinhamento
+                    foreach (var retangulo in retangulosVerde.Skip(1))
                     {
-                        // Ordenar os retângulos por posição X
-                        retangulosVerde.Sort((r1, r2) => r1.X.CompareTo(r2.X));
-
-                        Rectangle bloco = retangulosVerde[0];
-                        int contagemCaracteres = 1;
-
-                        // Agrupar os retângulos que estão próximos em termos de X e Y
-                        foreach (var retangulo in retangulosVerde.Skip(1))
+                        if (Math.Abs(retangulo.X - bloco.X - bloco.Width) < toleranciaEspaco && Math.Abs(retangulo.Y - bloco.Y) < toleranciaAlinhamento)
                         {
-                            if (Math.Abs(retangulo.X - bloco.X - bloco.Width) < toleranciaEspaco && Math.Abs(retangulo.Y - bloco.Y) < toleranciaAlinhamento)
-                            {
-                                bloco.Width = retangulo.X + retangulo.Width - bloco.X;
-                                contagemCaracteres++;
-                            }
+                            bloco.Width = retangulo.X + retangulo.Width - bloco.X;
+                            contagemCaracteres++;
                         }
-
-                        return bloco;
                     }
-                    Console.WriteLine("Numero de retangulos insuficiente!");
-                    return Rectangle.Empty; 
+                    //retorna area e contagem
+                    return (bloco, contagemCaracteres);
                 }
-                return Rectangle.Empty;
-
+                Console.WriteLine("Numero de retangulos insuficiente! Placa não encontrada");
+                return (Rectangle.Empty, 0);
             }
-            return Rectangle.Empty;
+            Console.WriteLine("Numero de retangulos insuficiente! Placa não encontrada");
+            return (Rectangle.Empty, 0);
         }
 
         private static Color ObterCorDoRetangulo(Rectangle retangulo, Bitmap image)
         {
-            // Calcular o ponto central do retângulo
-            int x = retangulo.Left;
-            int y = retangulo.Top;
-
-            // Obter a cor do ponto central da imagem
-            return image.GetPixel(x, y);
+            return image.GetPixel(retangulo.Left, retangulo.Top);
         }
-
 
         private static Bitmap RecortarImagem(Bitmap imagem, Rectangle area)
         {
             return imagem.Clone(area, imagem.PixelFormat);
         }
 
-        //sem acesso direto a memoria
         public static void threshold(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)
         {
             int width = imageBitmapSrc.Width;
@@ -445,8 +528,6 @@ namespace ProjEncontraPlaca
         {
             int width = imageBitmapSrc.Width;
             int height = imageBitmapSrc.Height;
-            int r, g, b;
-            Int32 gs;
 
             Color newcolor = Color.FromArgb(255, 255, 255);
             for (int y = 0; y < height; y++)
@@ -660,31 +741,38 @@ namespace ProjEncontraPlaca
             }
         }
 
-        public static Bitmap Dilatacao(Bitmap imageSrc, int[,] mascara, int tamX, int tamY, int[] origem)
+        public static Bitmap Erosao(Bitmap imageSrc, int[,] mascara, int tamX, int tamY, int[] origem)
         {
             Bitmap imageDest = (Bitmap)imageSrc.Clone();
-
             int width = imageSrc.Width;
             int height = imageSrc.Height;
-            int mat = mascara.Length;
-            Console.WriteLine(mat);
-            for (int x = tamX; x < width - tamX; x++)
+
+            for (int x = origem[0]; x < width - tamX + origem[0]; x++)
             {
-                for (int y = tamY; y < height - tamY; y++)
+                for (int y = origem[1]; y < height - tamY + origem[1]; y++)
                 {
-                    int R = imageSrc.GetPixel(x, y).R;
-                    if (R < 128)
+                    bool erode = true;
+
+                    // Verifica se todos os pixels sob a máscara são brancos
+                    for (int i = 0; i < tamX && erode; i++)
                     {
-                        for (int j = 0; j < tamX; j++)
+                        for (int j = 0; j < tamY && erode; j++)
                         {
-                            for (int i = 0; i < tamY; i++)
+                            if (mascara[i, j] == 1)
                             {
-                                if (mascara[i, j] != 0)
+                                Color pixel = imageSrc.GetPixel(x - origem[0] + i, y - origem[1] + j);
+                                if (pixel.R < 255) // Não é branco
                                 {
-                                    imageDest.SetPixel(x - origem[0] + j, y - origem[1] + i, Color.Black);
+                                    erode = false;
                                 }
                             }
                         }
+                    }
+
+                    // Aplica a operação de erosão
+                    if (!erode)
+                    {
+                        imageDest.SetPixel(x, y, Color.Black);
                     }
                 }
             }
@@ -692,39 +780,42 @@ namespace ProjEncontraPlaca
             return imageDest;
         }
 
-        public static Bitmap Erosao(Bitmap imageSrc, int[,] mascara, int tamX, int tamY, int[] origem)
+        public static Bitmap Dilatacao(Bitmap imageSrc, int[,] mascara, int tamX, int tamY, int[] origem)
         {
             Bitmap imageDest = (Bitmap)imageSrc.Clone();
             int width = imageSrc.Width;
             int height = imageSrc.Height;
 
-            for (int x = origem[0]; x < width - (tamX - origem[0]); x++)
+            for (int x = origem[0]; x < width - tamX + origem[0]; x++)
             {
-                for (int y = origem[1]; y < height - (tamY - origem[1]); y++)
+                for (int y = origem[1]; y < height - tamY + origem[1]; y++)
                 {
-                    if (imageSrc.GetPixel(x, y).R < 128)
+                    bool dilate = false;
+
+                    // Verifica se algum pixel sob a máscara é preto
+                    for (int i = 0; i < tamX && !dilate; i++)
                     {
-                        bool flag = false;
-                        for (int i = 0; i < tamX && !flag; i++)
+                        for (int j = 0; j < tamY && !dilate; j++)
                         {
-                            for (int j = 0; j < tamY && !flag; j++)
+                            if (mascara[i, j] == 1)
                             {
-                                if (mascara[i, j] != 0 && !(i == origem[0] && j == origem[1]))
+                                Color pixel = imageSrc.GetPixel(x - origem[0] + i, y - origem[1] + j);
+                                if (pixel.R == 0) // É preto
                                 {
-                                    if (imageSrc.GetPixel(x - origem[0] + i, y - origem[1] + j).R > 128)
-                                    {
-                                        flag = true;
-                                    }
+                                    dilate = true;
                                 }
                             }
                         }
-                        if (flag)
-                        {
-                            imageDest.SetPixel(x, y, Color.White);
-                        }
+                    }
+
+                    // Aplica a operação de dilatação
+                    if (dilate)
+                    {
+                        imageDest.SetPixel(x, y, Color.Black);
                     }
                 }
             }
+
             return imageDest;
         }
     }

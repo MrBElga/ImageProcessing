@@ -43,6 +43,7 @@ namespace ProjEncontraPlaca
             textBox1.Text = otsuThreshold.ToString();
             pictBoxImg.Image = temp;
         }
+
         private void btnSegmenta8_Click(object sender, EventArgs e)
         {
             try
@@ -59,7 +60,6 @@ namespace ProjEncontraPlaca
                 MessageBox.Show($"Erro ao processar a imagem: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void btnReconheDigito_Click(object sender, EventArgs e)
         {

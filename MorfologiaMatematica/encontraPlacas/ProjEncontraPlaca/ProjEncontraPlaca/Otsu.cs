@@ -99,7 +99,7 @@ namespace ProjEncontraPlaca
 
         public void Convert2GrayScaleFast(Bitmap bmp)
         {
-            BitmapData bmData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+            BitmapData bmData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             Int32 gs;
 
             unsafe
