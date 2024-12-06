@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ProjEncontraPlaca
 {
@@ -199,7 +200,7 @@ namespace ProjEncontraPlaca
             pictBoxImg.Image = (Bitmap)imageBitmapDest.Clone();
 
             // agrupa retangulos afim de achar a  placa
-            Rectangle areaPlaca = AgruparRetangulos(possiveisPlacas);
+            Rectangle areaPlaca = AgruparRetangulos(possiveisPlacas, imageBitmapDest);
 
             if (areaPlaca != Rectangle.Empty)
             {
@@ -323,41 +324,84 @@ namespace ProjEncontraPlaca
                 }
             }
         }
-
-        private static Rectangle AgruparRetangulos(List<Rectangle> retangulos)
+        private static bool EhVerde(Color cor)
         {
-            if (retangulos.Count == 0) return Rectangle.Empty;
-
-
-            retangulos.Sort((r1, r2) => r1.X.CompareTo(r2.X));
-
-            int toleranciaAlinhamento = 20;
-            int toleranciaEspaco = 20;
-            Rectangle bloco = retangulos[0];
-            int contagemCaracteres = 1;
-
-            foreach (var retangulo in retangulos.Skip(1))
+            // Definir as condições para diferentes tons de verde
+            if (cor.G > 100 && cor.G > cor.R + 20 && cor.G > cor.B + 20) // Verde mais saturado
             {
+                return true;
+            }
+            else if (cor.G > 80 && cor.G > cor.R + 10 && cor.G > cor.B + 10) // Verde intermediário
+            {
+                return true;
+            }
+            else if (cor.G > 60 && cor.G > cor.R && cor.G > cor.B) // Verde mais suave
+            {
+                return true;
+            }
 
-                if (Math.Abs(retangulo.Y - bloco.Y) <= toleranciaAlinhamento &&
-                    retangulo.X - (bloco.X + bloco.Width) <= toleranciaEspaco)
+            return false; 
+        }
+
+        private static Rectangle AgruparRetangulos(List<Rectangle> retangulos, Bitmap image)
+        {
+            if (retangulos.Count != 0)
+            {
+                int toleranciaEspaco = 500;
+                int toleranciaAlinhamento = 500;
+          
+                var retangulosVerde = new List<Rectangle>();
+
+                foreach (var retangulo in retangulos)
                 {
-                    bloco = Rectangle.Union(bloco, retangulo);
-                    contagemCaracteres++;
-                }
-            }
+                    Color cor = ObterCorDoRetangulo(retangulo, image);
 
-            //considerei 5 pq pode ser q ele n conseguiu detectr os 7
-            if (contagemCaracteres >= 5)
-            {
-                Console.WriteLine($"Placa detectada com {contagemCaracteres} caracteres.");
-                return bloco;
-            }
-            else
-            {
-                Console.WriteLine("Agrupamento não contém caracteres suficientes para uma placa.");
+                    // Verifica se o retângulo é verde
+                    if (EhVerde(cor))
+                    {
+                        retangulosVerde.Add(retangulo);
+                    }
+                }
+
+                if (retangulosVerde.Count != 0 )
+                {
+                    if (retangulosVerde.Count >= 3)
+                    {
+                        // Ordenar os retângulos por posição X
+                        retangulosVerde.Sort((r1, r2) => r1.X.CompareTo(r2.X));
+
+                        Rectangle bloco = retangulosVerde[0];
+                        int contagemCaracteres = 1;
+
+                        // Agrupar os retângulos que estão próximos em termos de X e Y
+                        foreach (var retangulo in retangulosVerde.Skip(1))
+                        {
+                            if (Math.Abs(retangulo.X - bloco.X - bloco.Width) < toleranciaEspaco && Math.Abs(retangulo.Y - bloco.Y) < toleranciaAlinhamento)
+                            {
+                                bloco.Width = retangulo.X + retangulo.Width - bloco.X;
+                                contagemCaracteres++;
+                            }
+                        }
+
+                        return bloco;
+                    }
+                    Console.WriteLine("Numero de retangulos insuficiente!");
+                    return Rectangle.Empty; 
+                }
                 return Rectangle.Empty;
+
             }
+            return Rectangle.Empty;
+        }
+
+        private static Color ObterCorDoRetangulo(Rectangle retangulo, Bitmap image)
+        {
+            // Calcular o ponto central do retângulo
+            int x = retangulo.Left;
+            int y = retangulo.Top;
+
+            // Obter a cor do ponto central da imagem
+            return image.GetPixel(x, y);
         }
 
 
