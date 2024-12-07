@@ -179,11 +179,7 @@ namespace ProjEncontraPlaca
                 otsu.threshold(placaRecortada, otsuThreshold);
 
                 // Aplica erosão para afinar as letras
-                int[,] mascara = new int[,] { {1, 1, 1 }, { 1, 1, 1 }, {1, 1, 1 } };
-                int[] origem = new int[] { 1, 1 };
          
-                placaRecortada = Filtros.Erosao(placaRecortada, mascara, 3, 3, origem);
-                placaRecortada = Filtros.Dilatacao(placaRecortada, mascara, 3, 3, origem);
                 // Segmenta a imagem
                 Bitmap imageBitmap2 = (Bitmap)placaRecortada.Clone();
                 Filtros.segmentar8conectado(imageBitmap2, placaRecortada, listaPini, listaPfim);
@@ -250,8 +246,7 @@ namespace ProjEncontraPlaca
                 otsu.threshold(placaRecortada, otsuThreshold);
 
                 // Aplica erosão para afinar as letras
-                int[,] mascara = new int[,] { { 0, 1, 0 }, { 1, 1, 1 }, { 0, 1, 0 } };
-                int[] origem = new int[] { 1, 1 };
+     
           
                 // Segmenta a imagem
                 Bitmap imageBitmap2 = (Bitmap)placaRecortada.Clone();
@@ -300,9 +295,6 @@ namespace ProjEncontraPlaca
                 otsu.Convert2GrayScaleFast(placaRecortada);
                 otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
                 otsu.threshold(placaRecortada, otsuThreshold);
-
-                // Aplica erosão para afinar as letras
-                placaRecortada = Filtros.Erosao(placaRecortada, mascara, 3, 3, origem);
 
                 // Segmenta a imagem
                 imageBitmap2 = (Bitmap)placaRecortada.Clone();
