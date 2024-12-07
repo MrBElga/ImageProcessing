@@ -220,19 +220,16 @@ namespace ProjEncontraPlaca
             else if (contagemRetangulos >= 5)
             {
                 Console.WriteLine("placa com mais de 4 digitos encontrada!");
-                Bitmap imageRecortadaitmap = (Bitmap)imageBitmapSrc.Clone();
                 // recortando em volta
                 Rectangle placaComMargem = new Rectangle(
                     Math.Max(0, areaPlaca.X - 10),
                     Math.Max(0, areaPlaca.Y - 10),
-                    Math.Min(imageRecortadaitmap.Width - areaPlaca.X - 1, areaPlaca.Width + 20),
-                    Math.Min(imageRecortadaitmap.Height - areaPlaca.Y - 1, areaPlaca.Height + 20)
+                    Math.Min(imageBitmapSrc.Width - areaPlaca.X - 1, areaPlaca.Width + 20),
+                    Math.Min(imageBitmapSrc.Height - areaPlaca.Y - 1, areaPlaca.Height + 15)
                 );
 
                 // recorta
-                // Bitmap placaRecortada = RecortarImagem(imageRecortadaitmap, placaComMargem);
-                Bitmap placaRecortada = (Bitmap)imageBitmapSrc.Clone();
-
+                Bitmap placaRecortada = RecortarImagem(imageBitmapSrc, placaComMargem);
                 pictBoxImg.Image = placaRecortada;
 
                 listaPini = new List<Point>();
@@ -245,18 +242,10 @@ namespace ProjEncontraPlaca
                 otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
                 otsu.threshold(placaRecortada, otsuThreshold);
 
-                // Aplica erosão para afinar as letras
-     
-          
                 // Segmenta a imagem
                 Bitmap imageBitmap2 = (Bitmap)placaRecortada.Clone();
                 Filtros.segmentar8conectado(imageBitmap2, placaRecortada, listaPini, listaPfim);
 
-                Desenha(imageBitmapDest, listaPini, listaPfim, altura, largura, possiveisPlacas);
-
-                //pictBoxImg.Image = placaRecortada;
-                Bitmap imageBitmapR = (Bitmap)placaRecortada.Clone();
-                Filtros.segmentar8conectado(imageBitmapR, placaRecortada, listaPini, listaPfim);
 
                 altura = 0;
                 largura = 0;
@@ -270,45 +259,25 @@ namespace ProjEncontraPlaca
 
                     if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
                     {
-                        /*
-                        na parte comentada do metodo encontra_placa la na parte de baixo tem que fazer um if pra ver se os pontos X e Y do retangulo verde está dentro das coordenadas da placa que foi achada tendeu ? Assim arruma os Retangulos verdes que foi achado fora da placa
-                        larguraPlaca = imageRecortadaitmap.Width - areaPlaca.X - 1, areaPlaca.Width + 20;
-                        alturaPlaca = imageRecortadaitmap.Height - areaPlaca.Y - 1, areaPlaca.Height + 10;
-                        if (areaPlaca.X){
-                        */
-
-                        if (listaPini[i].X >= areaPlaca.X && listaPfim[i].X <= areaPlaca.X + areaPlaca.Width && listaPini[i].Y >= areaPlaca.Y && listaPfim[i].Y <= areaPlaca.Y + areaPlaca.Height)
-                        {
+                       
                             // Desenha o retângulo verde na imagem (caractere detectado dentro da placa)
-                            Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+                            Filtros.desenhaRetangulo(placaRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
                             _listaPini.Add(listaPini[i]);
                             _listaPfim.Add(listaPfim[i]);
-                        }
+                        
                     }
                 }
 
-                placaRecortada = RecortarImagem(imageRecortadaitmap, placaComMargem);
-                otsu = new Otsu();
-                listaPini = new List<Point>();
-                listaPfim = new List<Point>();
-                // Aplica Otsu
-                otsu.Convert2GrayScaleFast(placaRecortada);
-                otsuThreshold = otsu.getOtsuThreshold((Bitmap)placaRecortada);
-                otsu.threshold(placaRecortada, otsuThreshold);
-
-                // Segmenta a imagem
-                imageBitmap2 = (Bitmap)placaRecortada.Clone();
-                Filtros.segmentar8conectado(imageBitmap2, placaRecortada, listaPini, listaPfim);
-                for (int i = 0; i < listaPini.Count; i++)
+                for (int i = 0; i < _listaPini.Count; i++)
                 {
-                    altura = listaPfim[i].Y - listaPini[i].Y;
-                    largura = listaPfim[i].X - listaPini[i].X;
+                    altura = _listaPfim[i].Y - _listaPini[i].Y;
+                    largura = _listaPfim[i].X - _listaPini[i].X;
 
                     // acha a placa com base no tam dos caracteres
                     if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
                     {
-                        Filtros.desenhaRetangulo(placaRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
-                        Filtros.reconheceDigito(placaRecortada, listaPini[i], listaPfim[i], cl_numeros, cl_letras);
+                        Filtros.desenhaRetangulo(placaRecortada, _listaPini[i], _listaPfim[i], Color.FromArgb(0, 255, 0));
+                        Filtros.reconheceDigito(placaRecortada, _listaPini[i], _listaPfim[i], cl_numeros, cl_letras);
                     }
                 }
 
