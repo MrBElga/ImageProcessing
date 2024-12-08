@@ -11,6 +11,124 @@ namespace ProjEncontraPlaca
         private static readonly Color CorVisitado = Color.FromArgb(255, 0, 0);
         private static readonly Color CorSegmentada = Color.FromArgb(100, 100, 100);
 
+        private static void segmenta8Branco(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, Point ini, List<Point> listaPini, List<Point> listaPfim, Color cor_pintar)
+        {
+            Point menor = new Point(), maior = new Point(), patual = new Point();
+            Queue<Point> fila = new Queue<Point>();
+            menor.X = maior.X = ini.X;
+            menor.Y = maior.Y = ini.Y;
+            fila.Enqueue(ini);
+            while (fila.Count != 0)
+            {
+                patual = fila.Dequeue();
+                imageBitmapSrc.SetPixel(patual.X, patual.Y, Color.FromArgb(255, 0, 0));
+                imageBitmapDest.SetPixel(patual.X, patual.Y, cor_pintar);
+
+                if (patual.X < menor.X)
+                    menor.X = patual.X;
+                if (patual.X > maior.X)
+                    maior.X = patual.X;
+                if (patual.Y < menor.Y)
+                    menor.Y = patual.Y;
+                if (patual.Y > maior.Y)
+                    maior.Y = patual.Y;
+
+                if (patual.X > 0)
+                {
+                    Color cor = imageBitmapSrc.GetPixel(patual.X - 1, patual.Y);
+                    if (cor.G == 255)
+                    //if(cor.R == 0)
+                    {
+                        fila.Enqueue(new Point(patual.X - 1, patual.Y));
+                        imageBitmapSrc.SetPixel(patual.X - 1, patual.Y, Color.FromArgb(255, 0, 0));
+                    }
+                    if (patual.Y > 0)
+                    {
+                        cor = imageBitmapSrc.GetPixel(patual.X - 1, patual.Y - 1);
+                        if (cor.G == 255)
+                        //if(cor.R == 0)
+                        {
+                            fila.Enqueue(new Point(patual.X - 1, patual.Y - 1));
+                            imageBitmapSrc.SetPixel(patual.X - 1, patual.Y - 1, Color.FromArgb(255, 0, 0));
+                        }
+                    }
+                }
+                if (patual.Y > 0)
+                {
+                    Color cor = imageBitmapSrc.GetPixel(patual.X, patual.Y - 1);
+                    if (cor.G == 255)
+                    //if(cor.R == 0)
+                    {
+                        fila.Enqueue(new Point(patual.X, patual.Y - 1));
+                        imageBitmapSrc.SetPixel(patual.X, patual.Y - 1, Color.FromArgb(255, 0, 0));
+                    }
+                    if (patual.X < imageBitmapSrc.Width - 1)
+                    {
+                        cor = imageBitmapSrc.GetPixel(patual.X + 1, patual.Y - 1);
+                        if (cor.G == 255)
+                        //if (cor.R == 0)
+                        {
+                            fila.Enqueue(new Point(patual.X + 1, patual.Y - 1));
+                            imageBitmapSrc.SetPixel(patual.X + 1, patual.Y - 1, Color.FromArgb(255, 0, 0));
+                        }
+                    }
+                }
+                if (patual.X < imageBitmapSrc.Width - 1)
+                {
+                    Color cor = imageBitmapSrc.GetPixel(patual.X + 1, patual.Y);
+                    if (cor.G == 255)
+                    //if (cor.R == 0)
+                    {
+                        fila.Enqueue(new Point(patual.X + 1, patual.Y));
+                        imageBitmapSrc.SetPixel(patual.X + 1, patual.Y, Color.FromArgb(255, 0, 0));
+                    }
+                    if (patual.Y < imageBitmapSrc.Height - 1)
+                    {
+                        cor = imageBitmapSrc.GetPixel(patual.X + 1, patual.Y + 1);
+                        if (cor.G == 255)
+                        //if (cor.R == 0)
+                        {
+                            fila.Enqueue(new Point(patual.X + 1, patual.Y + 1));
+                            imageBitmapSrc.SetPixel(patual.X + 1, patual.Y + 1, Color.FromArgb(255, 0, 0));
+                        }
+                    }
+                }
+                if (patual.Y < imageBitmapSrc.Height - 1)
+                {
+                    Color cor = imageBitmapSrc.GetPixel(patual.X, patual.Y + 1);
+                    if (cor.G == 255)
+                    //if (cor.R == 0)
+                    {
+                        fila.Enqueue(new Point(patual.X, patual.Y + 1));
+                        imageBitmapSrc.SetPixel(patual.X, patual.Y + 1, Color.FromArgb(255, 0, 0));
+                    }
+                    if (patual.X > 0)
+                    {
+                        cor = imageBitmapSrc.GetPixel(patual.X - 1, patual.Y + 1);
+                        if (cor.G == 255)
+                        //if (cor.R == 0)
+                        {
+                            fila.Enqueue(new Point(patual.X - 1, patual.Y + 1));
+                            imageBitmapSrc.SetPixel(patual.X - 1, patual.Y + 1, Color.FromArgb(255, 0, 0));
+                        }
+                    }
+                }
+
+            }
+
+            if (menor.X > 0)
+                menor.X--;
+            if (maior.X < imageBitmapSrc.Width - 1)
+                maior.X++;
+            if (menor.Y > 0)
+                menor.Y--;
+            if (maior.Y < imageBitmapSrc.Height - 1)
+                maior.Y++;
+            //desenhaRetangulo(imageBitmapDest, menor, maior, Color.FromArgb(255, 0, 0));
+            listaPini.Add(menor);
+            listaPfim.Add(maior);
+        }
+
         private static void segmenta8(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, Point ini, List<Point> listaPini, List<Point> listaPfim, Color cor_pintar)
         {
             Point menor = new Point(ini.X, ini.Y);
@@ -69,7 +187,33 @@ namespace ProjEncontraPlaca
             if (menor.Y > 0) menor.Y--;
             if (maior.Y < imageBitmapSrc.Height - 1) maior.Y++;
         }
-    
+
+        public static void segmentar8conectadoBranco(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, List<Point> listaPini, List<Point> listaPfim)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+            int r, g, b;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    //obtendo a cor do pixel
+                    //Color cor = imageBitmapDest.GetPixel(x,y);
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+
+                    r = cor.R;
+                    g = cor.G;
+                    b = cor.B;
+
+                    if (g == 255)
+                        //if(r == 0)
+                        segmenta8Branco(imageBitmapSrc, imageBitmapDest, new Point(x, y), listaPini, listaPfim, Color.FromArgb(100, 100, 100));
+                }
+            }
+        }
+
+
         public static void segmentar8conectado(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, List<Point> listaPini, List<Point> listaPfim)
         {
             int width = imageBitmapSrc.Width;
@@ -179,7 +323,7 @@ namespace ProjEncontraPlaca
                 otsu.threshold(placaRecortada, otsuThreshold);
 
                 // Aplica erosão para afinar as letras
-         
+
                 // Segmenta a imagem
                 Bitmap imageBitmap2 = (Bitmap)placaRecortada.Clone();
                 Filtros.segmentar8conectado(imageBitmap2, placaRecortada, listaPini, listaPfim);
@@ -224,8 +368,8 @@ namespace ProjEncontraPlaca
                 Rectangle placaComMargem = new Rectangle(
                     Math.Max(0, areaPlaca.X - 10),
                     Math.Max(0, areaPlaca.Y - 10),
-                    Math.Min(imageBitmapSrc.Width - areaPlaca.X - 1, areaPlaca.Width + 20),
-                    Math.Min(imageBitmapSrc.Height - areaPlaca.Y - 1, areaPlaca.Height + 15)
+                    Math.Min(imageBitmapSrc.Width - areaPlaca.X - 1, areaPlaca.Width + 10),
+                    Math.Min(imageBitmapSrc.Height - areaPlaca.Y - 1, areaPlaca.Height + 10)
                 );
 
                 // recorta
@@ -259,12 +403,12 @@ namespace ProjEncontraPlaca
 
                     if (altura > 15 && altura < 27 && largura > 3 && largura < 35)
                     {
-                       
-                            // Desenha o retângulo verde na imagem (caractere detectado dentro da placa)
-                            Filtros.desenhaRetangulo(placaRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
-                            _listaPini.Add(listaPini[i]);
-                            _listaPfim.Add(listaPfim[i]);
-                        
+
+                        // Desenha o retângulo verde na imagem (caractere detectado dentro da placa)
+                        Filtros.desenhaRetangulo(placaRecortada, listaPini[i], listaPfim[i], Color.FromArgb(0, 255, 0));
+                        _listaPini.Add(listaPini[i]);
+                        _listaPfim.Add(listaPfim[i]);
+
                     }
                 }
 
@@ -287,9 +431,80 @@ namespace ProjEncontraPlaca
             {
                 // Nenhuma placa foi encontrada
                 Console.WriteLine("Nenhuma placa foi encontrada!");
-            }
+                Console.WriteLine("### Processo para tentar reconhercer! ###");
+                //altura, largura;
+                List<Point> _listaPini = new List<Point>();
+                List<Point> _listaPfim = new List<Point>();
+                Console.WriteLine();
+                for (int i = 0; i < listaPini.Count; i++)
+                {
+                    altura = listaPfim[i].Y - listaPini[i].Y;
+                    largura = listaPfim[i].X - listaPini[i].X;
 
+                    //Pega todos os possiveis placas 
+                    if (altura > 27 && largura > 100)
+                    {
+                        _listaPini.Add(listaPini[i]);
+                        _listaPfim.Add(listaPfim[i]);
+                        Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(255, 0, 0));
+                    }
+                }
+
+                imageBitmapDest = imageBitmapSrc;
+
+                int passou = 0;
+
+                for (int i = 0; i < _listaPini.Count; i++)
+                {
+                    Bitmap imgAuxDest = (Bitmap)imageBitmapDest.Clone();
+                    Bitmap imgAuxSrc = (Bitmap)imageBitmapSrc.Clone();
+                    Bitmap imgAux = null;
+
+                    listaPfim.Clear();
+                    listaPini.Clear();
+
+                    imgAux = Filtros.recortaImagem(imgAuxSrc, _listaPini[i], _listaPfim[i]);
+
+                    otsu = new Otsu();
+
+                    otsu.Convert2GrayScaleFast(imgAux);
+                    otsuThreshold = otsu.getOtsuThreshold((Bitmap)imgAux);
+                    //otsu.threshold(imgAux, otsuThreshold
+
+                    Filtros.thresholdOtsu((Bitmap)imgAux.Clone(), imgAux, otsuThreshold);
+
+                    imageBitmap = (Bitmap)imgAux.Clone();
+                    Filtros.segmentar8conectadoBranco(imageBitmap, imgAux, listaPini, listaPfim);
+
+                    //Console.WriteLine(listaPini.Count);
+
+                    if (passou == 0)
+                    {
+                        for (int j = 0; j < listaPini.Count; j++)
+                        {
+                            altura = listaPfim[j].Y - listaPini[j].Y;
+                            largura = listaPfim[j].X - listaPini[j].X;
+
+                            //Console.WriteLine("Altura: "+altura+" - largura: "+largura);
+
+                            if (altura > 14 && altura < 27 && largura > 3 && largura < 35)
+                            {
+                                Filtros.desenhaRetangulo(imgAux, listaPini[j], listaPfim[j], Color.FromArgb(0, 255, 0));
+                                //Fazer um metodo onde cada vez que for percorrer uma imagem ele tenta reconhecer o numero ou caracter
+                                Filtros.reconheceDigito(imgAux, listaPini[j], listaPfim[j], cl_numeros, cl_letras);
+
+                                passou = 1;
+
+                                pictBoxImg.Image = null;
+
+                                pictBoxImg.Image = (Bitmap)imgAux;
+                            }
+                        }
+                    }
+                }
+            }
         }
+
 
         private static void Desenha(Bitmap imageBitmapDest, List<Point> listaPini, List<Point> listaPfim, int altura, int largura, List<Rectangle> possiveisPlacas)
         {
@@ -381,6 +596,48 @@ namespace ProjEncontraPlaca
         private static Bitmap RecortarImagem(Bitmap imagem, Rectangle area)
         {
             return imagem.Clone(area, imagem.PixelFormat);
+        }
+
+
+        private static Bitmap recortaImagem(Bitmap imageBitmapDest, Point inicio, Point fim)
+        {
+            int x, y, w, h;
+            x = inicio.X;
+            y = inicio.Y;
+            w = fim.X - inicio.X;
+            h = fim.Y - inicio.Y;
+            return ClassificacaoCaracteres.segmentaRoI(imageBitmapDest, x, y, w, h);
+        }
+
+        //sem acesso direto a memoria
+        public static void thresholdOtsu(Bitmap imageBitmapSrc, Bitmap imageBitmapDest, int otsu)
+        {
+            int width = imageBitmapSrc.Width;
+            int height = imageBitmapSrc.Height;
+            int r, g, b;
+            Int32 gs;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    //obtendo a cor do pixel
+                    Color cor = imageBitmapSrc.GetPixel(x, y);
+
+                    r = cor.R;
+                    g = cor.G;
+                    b = cor.B;
+                    gs = (Int32)(r * 0.1140 + g * 0.5870 + b * 0.2990);
+                    if (gs > otsu)
+                        gs = 255;
+                    else
+                        gs = 0;
+
+                    //nova cor
+                    Color newcolor = Color.FromArgb(gs, gs, gs);
+                    imageBitmapDest.SetPixel(x, y, newcolor);
+                }
+            }
         }
 
         public static void threshold(Bitmap imageBitmapSrc, Bitmap imageBitmapDest)

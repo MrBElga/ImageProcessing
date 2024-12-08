@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
@@ -55,7 +55,21 @@
               "ViewState": "AgIAABoAAAAAAAAAAAAWwC0AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.455Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmPrincipal.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "ProjEncontraPlaca\\frmPrincipal.cs",
+              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\frmPrincipal.cs [Design]",
+              "RelativeToolTip": "ProjEncontraPlaca\\frmPrincipal.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T14:59:05.718Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -80,7 +94,8 @@
               "RelativeToolTip": "ProjEncontraPlaca\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.419Z"
+              "WhenOpened": "2024-12-05T14:59:05.419Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -92,7 +107,8 @@
               "RelativeToolTip": "ProjEncontraPlaca\\NaoOcorre.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.451Z"
+              "WhenOpened": "2024-12-05T14:59:05.451Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -104,7 +120,8 @@
               "RelativeToolTip": "ProjEncontraPlaca\\Classe.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.452Z"
+              "WhenOpened": "2024-12-05T14:59:05.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -116,7 +133,8 @@
               "RelativeToolTip": "ProjEncontraPlaca\\Otsu.cs",
               "ViewState": "AgIAADUAAAAAAAAAAAAmwG4AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.454Z"
+              "WhenOpened": "2024-12-05T14:59:05.454Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -126,22 +144,10 @@
               "RelativeDocumentMoniker": "ProjEncontraPlaca\\Filtros.cs",
               "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\Filtros.cs*",
               "RelativeToolTip": "ProjEncontraPlaca\\Filtros.cs*",
-              "ViewState": "AgIAANQAAAAAAAAAAADwv+IAAABZAAAAAAAAAA==",
+              "ViewState": "AgIAAOYBAAAAAAAAAADwv/kBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-05T14:59:05.547Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "frmPrincipal.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\frmPrincipal.cs",
-              "RelativeDocumentMoniker": "ProjEncontraPlaca\\frmPrincipal.cs",
-              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\ImageProcessing\\MorfologiaMatematica\\encontraPlacas\\ProjEncontraPlaca\\ProjEncontraPlaca\\frmPrincipal.cs [Design]",
-              "RelativeToolTip": "ProjEncontraPlaca\\frmPrincipal.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T14:59:05.718Z",
-              "EditorCaption": " [Design]"
             }
           ]
         }
