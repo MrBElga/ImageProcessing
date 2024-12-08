@@ -427,82 +427,75 @@ namespace ProjEncontraPlaca
 
                 pictBoxImg.Image = placaRecortada;
             }
-            else
-            {
-                // Nenhuma placa foi encontrada
-                Console.WriteLine("Nenhuma placa foi encontrada!");
-                Console.WriteLine("### Processo para tentar reconhercer! ###");
-                //altura, largura;
-                List<Point> _listaPini = new List<Point>();
-                List<Point> _listaPfim = new List<Point>();
-                Console.WriteLine();
-                for (int i = 0; i < listaPini.Count; i++)
-                {
-                    altura = listaPfim[i].Y - listaPini[i].Y;
-                    largura = listaPfim[i].X - listaPini[i].X;
+            else{
+    // Nenhuma placa foi encontrada
+    //Console.WriteLine("Nenhuma placa foi encontrada!");
+    //Console.WriteLine("### Processo para tentar reconhercer! ###");
+    listaPfim.Clear();
+    listaPini.Clear();
+    imageBitmap = (Bitmap)imageBitmapDest.Clone();
+    Filtros.segmentar8conectadoBranco(imageBitmap, imageBitmapDest, listaPini, listaPfim);
 
-                    //Pega todos os possiveis placas 
-                    if (altura > 27 && largura > 100)
-                    {
-                        _listaPini.Add(listaPini[i]);
-                        _listaPfim.Add(listaPfim[i]);
-                        Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(255, 0, 0));
-                    }
-                }
+    List<Point> _listaPini = new List<Point>();
+    List<Point> _listaPfim = new List<Point>();
+    Console.WriteLine();
+    for(int i = 0; i < listaPini.Count; i++){
+        altura = listaPfim[i].Y - listaPini[i].Y;
+        largura = listaPfim[i].X - listaPini[i].X;
 
-                imageBitmapDest = imageBitmapSrc;
+        //Pega todos os possiveis placas 
+        if(altura > 27 && largura > 100){
+            _listaPini.Add(listaPini[i]);
+            _listaPfim.Add(listaPfim[i]);
+            //Filtros.desenhaRetangulo(imageBitmapDest, listaPini[i], listaPfim[i], Color.FromArgb(255, 0, 0));
+        }
+    }
+    
+    //imageBitmapDest = imageBitmapSrc;
 
-                int passou = 0;
+    int passou = 0;
 
-                for (int i = 0; i < _listaPini.Count; i++)
-                {
-                    Bitmap imgAuxDest = (Bitmap)imageBitmapDest.Clone();
-                    Bitmap imgAuxSrc = (Bitmap)imageBitmapSrc.Clone();
-                    Bitmap imgAux = null;
+    for(int i = 0; i < _listaPini.Count; i++){
+        //Bitmap imgAuxDest = (Bitmap)imageBitmapDest.Clone();
+        Bitmap imgAuxSrc = (Bitmap)imageBitmapSrc.Clone();
+        Bitmap imgAux = null;
 
-                    listaPfim.Clear();
-                    listaPini.Clear();
+        listaPfim.Clear();
+        listaPini.Clear();
 
-                    imgAux = Filtros.recortaImagem(imgAuxSrc, _listaPini[i], _listaPfim[i]);
+        imgAux = Filtros.recortaImagem(imgAuxSrc, _listaPini[1], _listaPfim[1]);
 
-                    otsu = new Otsu();
+        otsu = new Otsu();
 
-                    otsu.Convert2GrayScaleFast(imgAux);
-                    otsuThreshold = otsu.getOtsuThreshold((Bitmap)imgAux);
-                    //otsu.threshold(imgAux, otsuThreshold
+        otsu.Convert2GrayScaleFast(imgAux);
+        otsuThreshold = otsu.getOtsuThreshold((Bitmap)imgAux);
+        //otsu.threshold(imgAux, otsuThreshold
 
-                    Filtros.thresholdOtsu((Bitmap)imgAux.Clone(), imgAux, otsuThreshold);
+        Filtros.thresholdOtsu((Bitmap)imgAux.Clone(), imgAux, otsuThreshold);
 
-                    imageBitmap = (Bitmap)imgAux.Clone();
-                    Filtros.segmentar8conectadoBranco(imageBitmap, imgAux, listaPini, listaPfim);
+        imageBitmap = (Bitmap)imgAux.Clone();
+        Filtros.segmentar8conectado(imageBitmap, imgAux, listaPini, listaPfim);
 
-                    //Console.WriteLine(listaPini.Count);
+        if(passou == 0){
+            for(int j = 0; j < listaPini.Count; j++){
+                altura = listaPfim[j].Y - listaPini[j].Y;
+                largura = listaPfim[j].X - listaPini[j].X;
 
-                    if (passou == 0)
-                    {
-                        for (int j = 0; j < listaPini.Count; j++)
-                        {
-                            altura = listaPfim[j].Y - listaPini[j].Y;
-                            largura = listaPfim[j].X - listaPini[j].X;
+                if(altura > 14 && altura < 27 && largura > 3 && largura < 35){
+                    Filtros.desenhaRetangulo(imgAux, listaPini[j], listaPfim[j], Color.FromArgb(0, 255, 0));
+                    //Fazer um metodo onde cada vez que for percorrer uma imagem ele tenta reconhecer o numero ou caracter
+                    Filtros.reconheceDigito(imgAux, listaPini[j], listaPfim[j], cl_numeros, cl_letras);
 
-                            //Console.WriteLine("Altura: "+altura+" - largura: "+largura);
+                    passou = 1;
 
-                            if (altura > 14 && altura < 27 && largura > 3 && largura < 35)
-                            {
-                                Filtros.desenhaRetangulo(imgAux, listaPini[j], listaPfim[j], Color.FromArgb(0, 255, 0));
-                                //Fazer um metodo onde cada vez que for percorrer uma imagem ele tenta reconhecer o numero ou caracter
-                                Filtros.reconheceDigito(imgAux, listaPini[j], listaPfim[j], cl_numeros, cl_letras);
+                    pictBoxImg.Image = null;
 
-                                passou = 1;
-
-                                pictBoxImg.Image = null;
-
-                                pictBoxImg.Image = (Bitmap)imgAux;
-                            }
-                        }
-                    }
+                    pictBoxImg.Image = (Bitmap)imgAux;
                 }
             }
+        }
+    }
+}
         }
 
 
